@@ -1,0 +1,6 @@
+jxie20 -- 2021-10-28 22:06
+In design.pdf:
+- Made the program components section more specific
+- Cleared up how we would implement a stories list in the users table
+- Delegated tasks amongst our group
+- Added flask and html file specification section
