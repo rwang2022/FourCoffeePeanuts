@@ -1,4 +1,4 @@
-# <Project Name> by FourCoffeePeanuts
+# (Project Name) by FourCoffeePeanuts
 
 Ryan Wang (PM, SQL) <br />
 Eliza Knapp (SQL, Python) <br />
