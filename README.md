@@ -1,6 +1,6 @@
 # FourCoffeePeanuts
 
-Ryan Wang (PM)
-Eliza Knapp
-Yaying Liang Li
-Jesse Xie
+Ryan Wang (PM) <br />
+Eliza Knapp <br />
+Yaying Liang Li <br />
+Jesse Xie <br />
