@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+  Team fourCoffeePeanuts: Ryan Wang (PM), Eliza Knapp, Yaying Liang Li, Jesse Xie
+  SoftDev
+  P00 -- Move Slowly and Fix Things
+-->
+
+
+<html>
+
+  <head>
+    <title> 
+      {% if (create) %}
+      Create Account
+      {% else %}
+      Login
+      {% endif %}
+    </title>
+  </head>
+
+  <body>
+    {% if (create) %}
+
+    <h1> Create Account </h1>
+    <form action="/submit_create_account" method = "POST">
+      <p>username:<input type="text" name="username"> </p>
+      <p>password:<input type="text" name="password"></p>
+      <p>re-type password:<input type="text" name="same_password"></p>
+      <input type="submit" name="sub1">
+    </form>
+
+    {% else %}
+
+    <h1> Login </h1>
+    <form action="/submit_login" method = "POST">
+      <p>username:<input type="text" name="username"> </p>
+      <p>password:<input type="text" name="password"></p>
+      <input type="submit" name="sub1">
+    </form>
+
+    {% endif %}
+  </body>
+
+</html>
