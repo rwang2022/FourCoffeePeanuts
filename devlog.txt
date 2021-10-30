@@ -1,6 +1,27 @@
-jxie20 -- 2021-10-28 22:06
+jesseX -- 2021-10-28 22:06
 In design.pdf:
 - Made the program components section more specific
 - Cleared up how we would implement a stories list in the users table
 - Delegated tasks amongst our group
 - Added flask and html file specification section
+
+elizaK -- 2021-10-30 15:38
+In __init__.py
+- configured the basic stuff so the mainpage opens
+- created routes for login, create_account that
+take you to forms to do those things
+- created routes for handling submission of login
+or create_account and wrote pseudocode for the steps
+necessary to have those working
+In templates
+- created templates folder
+- made main_page.html which just renders the root 
+route and has links that take you to login/create 
+- made login_create.html which conditionally
+renders the different forms to log in or make
+account because this way there are fewer files
+Next steps :)
+1. Create the 2 databases in design doc
+2. Configure the submit functions that now have
+pseudocode
+3. Configure sessions
