@@ -24,7 +24,6 @@ c.execute((create))
 # renders the main page
 @app.route("/")
 def main_page():
-    print("dasda")
     return render_template("main_page.html")
 
 # create account site
@@ -39,17 +38,27 @@ def submit_create_account():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-            
-        info = [username,password,"da"]
-        addAccount = f"INSERT INTO users VALUES(?,?,?)"
-        c.execute(addAccount,info)
-        db.commit() #save changes
-        return render_template("main_page.html")
-        # check if username is in the database
+        same_password = request.form.get("same_password")
+        #get data from form
+        c.execute("SELECT * FROM users")
+        usersTable = c.fetchall()
+        #fetch user table data from db file
+        userTaken = False
+        for user in usersTable: # check if username is in the database
+            if user[0] == username:
+                userTaken = True
+        if userTaken:
+            return render_template("login_create.html", create=True, error="That username has already been taken")
             # if it is, return this username has been taken error
-            # if it is not, check if the passwords match
-                # if they do, add the entry to the database
-                # if they do not, return passwords do not match error
+        elif password != same_password: # if it is not, check if the passwords match
+            return render_template("login_create.html", create=True, error="The passwords do not match")
+            # if they do not, return passwords do not match error
+        else:
+            info = [username,password,""]
+            addAccount = f"INSERT INTO users VALUES(?,?,?)" # if they do, add the entry to the database
+            c.execute(addAccount,info) #add user data to table
+            db.commit() #save changes
+            return render_template("main_page.html")
     # overall catch here to make sure site never breaks
 
 # login site

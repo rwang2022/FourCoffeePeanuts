@@ -15,8 +15,8 @@ or create_account and wrote pseudocode for the steps
 necessary to have those working
 In templates
 - created templates folder
-- made main_page.html which just renders the root 
-route and has links that take you to login/create 
+- made main_page.html which just renders the root
+route and has links that take you to login/create
 - made login_create.html which conditionally
 renders the different forms to log in or make
 account because this way there are fewer files
@@ -25,3 +25,16 @@ Next steps :)
 2. Configure the submit functions that now have
 pseudocode
 3. Configure sessions
+
+jesseX -- 2021-10-30-22:40
+In __init__.py
+- Created db file that contains user and stories table
+- Added to user table with username and password entered in login_create form
+- Checks whether or not username is already taken, and outputs error if it is
+- Checks whether or not the passwords match in user creation, and outputs error if they do not
+- Changed input type to password for password parameters
+- Commented out submit_login so the python file can run currently
+Next steps
+1. Configure submit_login function
+2. Configure sessions
+3. Begin story creation
