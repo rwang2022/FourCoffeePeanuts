@@ -9,13 +9,14 @@
 <html>
 
   <head>
-    <title> 
+    <title>
       {% if (create) %}
       Create Account
       {% else %}
       Login
       {% endif %}
     </title>
+
   </head>
 
   <body>
@@ -24,8 +25,8 @@
     <h1> Create Account </h1>
     <form action="/submit_create_account" method = "POST">
       <p>username:<input type="text" name="username"> </p>
-      <p>password:<input type="text" name="password"></p>
-      <p>re-type password:<input type="text" name="same_password"></p>
+      <p>password:<input type="password" name="password"></p>
+      <p>re-type password:<input type="password" name="same_password"></p>
       <input type="submit" name="sub1">
     </form>
 
@@ -34,7 +35,7 @@
     <h1> Login </h1>
     <form action="/submit_login" method = "POST">
       <p>username:<input type="text" name="username"> </p>
-      <p>password:<input type="text" name="password"></p>
+      <p>password:<input type="password" name="password"></p>
       <input type="submit" name="sub1">
     </form>
 
