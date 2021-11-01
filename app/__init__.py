@@ -66,6 +66,11 @@ def submit_create_account():
 def login():
     return render_template("login_create.html", create=False)
 
+#logout page
+@app.route("/logout")
+def logout():
+    return render_template('main_page.html')
+
 # handles submitting of login
 @app.route("/submit_login", methods=['GET', 'POST'])
 def submit_login():
