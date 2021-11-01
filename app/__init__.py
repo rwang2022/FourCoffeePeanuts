@@ -61,10 +61,15 @@ def submit_create_account():
             return render_template("main_page.html")
     # overall catch here to make sure site never breaks
 
-# login site
+# login page
 @app.route("/login")
 def login():
     return render_template("login_create.html", create=False)
+
+# error page
+@app.route("/error")
+def error(which_error):
+    return render_template("error_page.html", error = which_error)
 
 # handles submitting of login
 @app.route("/submit_login", methods=['GET', 'POST'])
@@ -81,10 +86,10 @@ def submit_login():
         for value in usersTable:
             if value[0] == user: #check if user is in the users database
                 if value[1] == passwd: #if user is, check if password is correct
-                    login() #if everything works, log the user in successfully
+                    return login() #if everything works, log the user in successfully
                 else: #user exists, but password is wrong
-                    print("bad password") #have to render template this
-        print("user does not exist") #render template this;
+                    return error("passwd") #call error fxn; indicate passwd is incorrect
+        return error("username") #call error fxn; indicate username is incorrect
         #only return this after checking all the usernames & confirming it doesn't exist
         #overall catch for working site
         
