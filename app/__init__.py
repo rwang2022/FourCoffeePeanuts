@@ -67,18 +67,37 @@ def login():
     return render_template("login_create.html", create=False)
 
 # handles submitting of login
-'''
-@app.route("/submit_login")
+@app.route("/submit_login", methods=['GET', 'POST'])
 def submit_login():
     # try
     if request.method == "POST":
+        user = request.form.get("username") #get data from form
+        passwd = request.form.get("password")
+
+        c.execute("SELECT * FROM users")
+        usersTable = c.fetchall() #fetch user table data from db file;
+        #usersTable is a list of tuples: [(user,pass,stories), (user,pass,stories)]
+        
+        for value in usersTable:
+            if value[0] == user: #check if user is in the users database
+                if value[1] == passwd: #if user is, check if password is correct
+                    login() #if everything works, log the user in successfully
+                else: #user exists, but password is wrong
+                    print("bad password") #have to render template this
+        print("user does not exist") #render template this;
+        #only return this after checking all the usernames & confirming it doesn't exist
+        #overall catch for working site
+        
+        #c.execute("SELECT password from users WHERE username=user")
+
+    '''
         # check if username is in database
             # if it is, check password
                 # if everything works, log the user in successfully
                 # if the password is wrong, return that error
             # if the username is not, return username wrong error
     # overall catch for working site
-'''
+    '''
 
 
 if __name__ == "__main__":
