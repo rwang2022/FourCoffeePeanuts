@@ -26,7 +26,7 @@ Next steps :)
 pseudocode
 3. Configure sessions
 
-jesseX -- 2021-10-30-22:40
+jesseX -- 2021-10-30 22:40
 In __init__.py
 - Created db file that contains user and stories table
 - Added to user table with username and password entered in login_create form
@@ -39,7 +39,7 @@ Next steps
 2. Configure sessions
 3. Begin story creation
 
-yayingLL -- 2021-11-1-01:03
+yayingLL -- 2021-11-1 01:03
 In __init__.py
 - Added submit_login() method
 - Compares if username and password inputted matches with the information in the users database; if it does, takes user to logged-in page; if it doesn't, displays respective error message
@@ -47,4 +47,14 @@ In __init__.py
 Next steps
 1. Configure sessions
 2. Begin story creation
+3. Fix up HTML templates
+
+yayingLL and JesseX -- 2021-11-1 09:20
+In __init__.py
+- Removed error method in favor of adding errors messages through variable in html file
+- Saves session when logging in
+- Added dashboard page with logout button
+Next steps
+1. Continue to configure sessions
+2. Add story creation page and button in dashbosrd
 3. Fix up HTML templates
