@@ -49,12 +49,25 @@ Next steps
 2. Begin story creation
 3. Fix up HTML templates
 
-yayingLL and JesseX -- 2021-11-1 09:20
+yayingLL and jesseX -- 2021-11-1 09:20
 In __init__.py
 - Removed error method in favor of adding errors messages through variable in html file
 - Saves session when logging in
 - Added dashboard page with logout button
+In templates
+- Added html file for dashboard (logged_in.html)
 Next steps
 1. Continue to configure sessions
-2. Add story creation page and button in dashbosrd
+2. Add story creation page and button in dashboard
 3. Fix up HTML templates
+
+jesseX -- 2021-11-1 18:47
+In __init__.py
+- Added username global variable to save username if there is a user logged in
+- Pops out session when logout button is pressed
+- Redirects to dashboard on main page if user is logged in
+- Error generated if username or password is blank
+Next steps
+1. Add story creation page and button in dashboard
+2. Fix up HTML templates
+3. Add story search functionality/ see stories from dashboard
