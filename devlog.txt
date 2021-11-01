@@ -38,3 +38,13 @@ Next steps
 1. Configure submit_login function
 2. Configure sessions
 3. Begin story creation
+
+yayingLL -- 2021-11-1-01:03
+In __init__.py
+- Added submit_login() method
+- Compares if username and password inputted matches with the information in the users database; if it does, takes user to logged-in page; if it doesn't, displays respective error message
+- Added error() method, which takes in which_error as a parameter; which_error tells which error to display in the HTML file
+Next steps
+1. Configure sessions
+2. Begin story creation
+3. Fix up HTML templates
