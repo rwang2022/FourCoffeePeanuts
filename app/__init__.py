@@ -58,18 +58,13 @@ def submit_create_account():
             addAccount = f"INSERT INTO users VALUES(?,?,?)" # if they do, add the entry to the database
             c.execute(addAccount,info) #add user data to table
             db.commit() #save changes
-            return render_template("main_page.html")
+            return main_page()
     # overall catch here to make sure site never breaks
 
 # login page
 @app.route("/login")
 def login():
     return render_template("login_create.html", create=False)
-
-# error page
-@app.route("/error")
-def error(which_error):
-    return render_template("error_page.html", error = which_error)
 
 # handles submitting of login
 @app.route("/submit_login", methods=['GET', 'POST'])
@@ -82,17 +77,18 @@ def submit_login():
         c.execute("SELECT * FROM users")
         usersTable = c.fetchall() #fetch user table data from db file;
         #usersTable is a list of tuples: [(user,pass,stories), (user,pass,stories)]
-        
+
         for value in usersTable:
             if value[0] == user: #check if user is in the users database
                 if value[1] == passwd: #if user is, check if password is correct
-                    return login() #if everything works, log the user in successfully
+                    session[user] = passwd
+                    return main_page() #if everything works, log the user in successfully
                 else: #user exists, but password is wrong
-                    return error("passwd") #call error fxn; indicate passwd is incorrect
-        return error("username") #call error fxn; indicate username is incorrect
+                    return render_template("login_create.html", create=False, error="The password is incorrect") #call error fxn; indicate passwd is incorrect
+        return render_template("login_create.html", create=False, error="That user does not exist") #call error fxn; indicate username is incorrect
         #only return this after checking all the usernames & confirming it doesn't exist
         #overall catch for working site
-        
+
         #c.execute("SELECT password from users WHERE username=user")
 
     '''
