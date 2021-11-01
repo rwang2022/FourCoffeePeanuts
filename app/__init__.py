@@ -21,9 +21,13 @@ c.execute((create))
 create = "CREATE TABLE IF NOT EXISTS stories (name TEXT, latestUpdate TEXT, fullStory TEXT) " # create stories table
 c.execute((create))
 
+logged_in_user = ""
+
 # renders the main page
 @app.route("/")
 def main_page():
+    if session.get(logged_in_user):
+        return dashboard()
     return render_template("main_page.html")
 
 # create account site
@@ -43,6 +47,8 @@ def submit_create_account():
         c.execute("SELECT * FROM users")
         usersTable = c.fetchall()
         #fetch user table data from db file
+        if username == '':
+            return render_template("login_create.html", create=True, error="Your username cannot be blank")
         userTaken = False
         for user in usersTable: # check if username is in the database
             if user[0] == username:
@@ -53,6 +59,8 @@ def submit_create_account():
         elif password != same_password: # if it is not, check if the passwords match
             return render_template("login_create.html", create=True, error="The passwords do not match")
             # if they do not, return passwords do not match error
+        elif password == '':
+            return render_template("login_create.html", create=True, error="Your password cannot be blank")
         else:
             info = [username,password,""]
             addAccount = f"INSERT INTO users VALUES(?,?,?)" # if they do, add the entry to the database
@@ -67,8 +75,12 @@ def login():
     return render_template("login_create.html", create=False)
 
 #logout page
-@app.route("/logout")
+@app.route("/logout", methods=['GET', 'POST'])
 def logout():
+    global logged_in_user
+    if logged_in_user in session:
+        session.pop(logged_in_user)
+        logged_in_user = ""
     return render_template('main_page.html')
 
 # handles submitting of login
@@ -86,8 +98,10 @@ def submit_login():
         for value in usersTable:
             if value[0] == user: #check if user is in the users database
                 if value[1] == passwd: #if user is, check if password is correct
+                    global logged_in_user
+                    logged_in_user = user
                     session[user] = passwd
-                    return main_page() #if everything works, log the user in successfully
+                    return dashboard() #if everything works, log the user in successfully
                 else: #user exists, but password is wrong
                     return render_template("login_create.html", create=False, error="The password is incorrect") #call error fxn; indicate passwd is incorrect
         return render_template("login_create.html", create=False, error="That user does not exist") #call error fxn; indicate username is incorrect
@@ -105,6 +119,12 @@ def submit_login():
     # overall catch for working site
     '''
 
+@app.route("/dashboard")
+def dashboard():
+    if not session.get(logged_in_user):
+        # if session doesn't have the correct login info, i.e. you are not signed in
+        return render_template('main_page.html')
+    return render_template("logged_in.html")
 
 if __name__ == "__main__":
     app.debug = True
