@@ -123,9 +123,23 @@ def dashboard():
 def create_story():
     return render_template("create_story.html")
 
-@app.route("/submit_create_story")
+@app.route("/submit_create_story", methods=['GET', 'POST'])
 def submit_create_story():
     # add the stuff to database
+    if request.method == "POST":
+        # current problem: it's not a post method but i don't know why
+        title = request.form.get("title")
+        story = request.form.get("story")
+        print(title)
+        print(story)
+        # check if the title is taken
+        '''
+        c.execute("SELECT (?) FROM stories", title)
+        titleRepeats = c.fetall()
+        print(titleRepeats)
+        if (len(titleRepeats) > 0):
+            return render_template("create_story.html", error="Title already")
+        '''
 
     # then go back to dashboard
     # TODO: dashboard should now render the new story added to
