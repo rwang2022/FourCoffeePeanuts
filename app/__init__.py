@@ -123,6 +123,14 @@ def dashboard():
 def create_story():
     return render_template("create_story.html")
 
+@app.route("/submit_create_story")
+def submit_create_story():
+    # add the stuff to database
+
+    # then go back to dashboard
+    # TODO: dashboard should now render the new story added to
+    return redirect("/dashboard")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
