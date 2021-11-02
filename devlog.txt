@@ -71,3 +71,19 @@ Next steps
 1. Add story creation page and button in dashboard
 2. Fix up HTML templates
 3. Add story search functionality/ see stories from dashboard
+
+elizaK -- 2021-11-2 11:53
+In __init__.py
+- added try except blocks so that the login functions never crash
+- added functions in python to handle and redirect those submissions
+- problem: the new submission isn't post so the function doesn't 
+get the title and story from the form for some reason
+In templates (create_story.html, dashboard.html)
+- made logout dashboard instead and have the submit login and create
+account functions redirect to the dashboard
+- added button to dashboard to create story that takes user to create_story.html
+where they can submit a story
+Next steps
+1. Figure out the form submission after you submit create story 
+2. Add the information to the database when you submit
+3. Add story search functionality/ see stories from dashboard (later)
