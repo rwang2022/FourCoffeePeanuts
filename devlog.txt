@@ -87,3 +87,10 @@ Next steps
 1. Figure out the form submission after you submit create story 
 2. Add the information to the database when you submit
 3. Add story search functionality/ see stories from dashboard (later)
+
+ryanW -- 2021-11-02 19:52
+In __init__.py 
+- submit_create_story() had a bug where method was not post, so the conditional 
+couldn't run
+- solved this bug by going to the create_story.html and specifying the method as POST 
+in the form 
