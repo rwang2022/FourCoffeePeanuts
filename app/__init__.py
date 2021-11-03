@@ -117,7 +117,10 @@ def dashboard():
     if not session.get(logged_in_user):
         # if session doesn't have the correct login info, i.e. you are not signed in
         return render_template('main_page.html')
-    return render_template("dashboard.html")
+    
+    c.execute("SELECT * FROM stories")
+    stories_list = [line for line in c]
+    return render_template("dashboard.html", stories_list=stories_list)
 
 @app.route("/create_story")
 def create_story():
@@ -128,10 +131,13 @@ def submit_create_story():
     # add the stuff to database
     if request.method == "POST":
         # current problem: it's not a post method but i don't know why
+
+        # stores the info into handy variables to put into a tuple, 
+        # to insert into the stories stories in the DB 
         title = request.form.get("title")
         story = request.form.get("story")
-        print(title)
-        print(story)
+        latest_update = request.form.get("story")
+
         # check if the title is taken
         '''
         c.execute("SELECT (?) FROM stories", title)
@@ -141,8 +147,16 @@ def submit_create_story():
             return render_template("create_story.html", error="Title already")
         '''
 
+        # adds the story info (title, story text) to the stories table in walnutLatte.db
+        data_tuple = (title, latest_update, story)
+        insert = """INSERT INTO stories
+        (name, latestUpdate, fullStory)
+        VALUES (?, ?, ?);"""
+        c.execute(insert, data_tuple)
+        db.commit()
+
     # then go back to dashboard
-    # TODO: dashboard should now render the new story added to
+    # TO DO: dashboard should now render the new story added to
     return redirect("/dashboard")
 
 if __name__ == "__main__":

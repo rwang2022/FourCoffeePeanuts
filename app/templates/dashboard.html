@@ -7,6 +7,24 @@
 
 
 <html>
+  <!-- https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro -->
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
 
   <head>
     <title>
@@ -16,12 +34,36 @@
   </head>
 
   <body>
+    <!-- For now, we will just print the stories
+    The users are supposed to be able to add to them -->
+    <h2>Story List Below</h2>
+    <table style="width:100%">
+      <tr>
+        <th>Title</th>
+        <th>Latest Update</th>
+        <th>Full Story</th>
+      </tr>
+
+      {% for story_info in stories_list %}
+        <tr>
+        {% for col in story_info %}
+          <td>{{col}}</td>
+        {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+
+    <br>
+    <br>
+
     <form action="/create_story">
       <input type="submit" value="Create Story">
     </form>
-    <form action="/logout" method = "POST">
+
+    <form action="/logout" method="POST">
       <input type="submit" value="Log Out">
     </form>
+  
   </body>
 
 </html>
