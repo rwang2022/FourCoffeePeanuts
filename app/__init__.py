@@ -117,7 +117,7 @@ def dashboard():
     if not session.get(logged_in_user):
         # if session doesn't have the correct login info, i.e. you are not signed in
         return render_template('main_page.html')
-    
+
     c.execute("SELECT * FROM stories")
     stories_list = [line for line in c]
     return render_template("dashboard.html", stories_list=stories_list)
@@ -132,16 +132,17 @@ def submit_create_story():
     if request.method == "POST":
         # current problem: it's not a post method but i don't know why
 
-        # stores the info into handy variables to put into a tuple, 
-        # to insert into the stories stories in the DB 
+        # stores the info into handy variables to put into a tuple,
+        # to insert into the stories stories in the DB
         title = request.form.get("title")
         story = request.form.get("story")
         latest_update = request.form.get("story")
 
         # check if the title is taken
         '''
-        c.execute("SELECT (?) FROM stories", title)
-        titleRepeats = c.fetall()
+        c.execute("SELECT * FROM stories WHERE name = (?)", title[0])
+
+        titleRepeats = c.fetchall()
         print(titleRepeats)
         if (len(titleRepeats) > 0):
             return render_template("create_story.html", error="Title already")

@@ -76,7 +76,7 @@ elizaK -- 2021-11-2 11:53
 In __init__.py
 - added try except blocks so that the login functions never crash
 - added functions in python to handle and redirect those submissions
-- problem: the new submission isn't post so the function doesn't 
+- problem: the new submission isn't post so the function doesn't
 get the title and story from the form for some reason
 In templates (create_story.html, dashboard.html)
 - made logout dashboard instead and have the submit login and create
@@ -84,27 +84,31 @@ account functions redirect to the dashboard
 - added button to dashboard to create story that takes user to create_story.html
 where they can submit a story
 Next steps
-1. Figure out the form submission after you submit create story 
+1. Figure out the form submission after you submit create story
 2. Add the information to the database when you submit
 3. Add story search functionality/ see stories from dashboard (later)
 
 ryanW -- 2021-11-02 22:50
 Bug about method=POST
-    In __init__.py 
-    - submit_create_story() had a bug where method was not POST, 
+    In __init__.py
+    - submit_create_story() had a bug where method was not POST,
       so the conditional couldn't run
     In create_story.html
-    - solved this bug by specifying the method as POST in the form 
+    - solved this bug by specifying the method as POST in the form
 Adding Story Entries into stories table
     In __init__.py
     - added the functionality to insert into stories table in submit_create_story()
       which is utilized in create_story.html
     In create_story.html
-    - the button can insert into stories table. 
+    - the button can insert into stories table.
     In dashboard.html
     - After logging in, the user can see all the stories in a table.
 Next steps
-1. For now, the user cannot update the stories they see in the table in dashboard.html.
-   We need to add a button/link to each story that can do that. 
-2. The user is only supposed to be able to see the title and latest update. The table 
-   in dashboard right now shows full story. 
+1. Add better logic for getting same title in stories tables for create story.
+2. There should be a link to read (for stories table)
+3. For now, the user cannot update the stories they see in the table in dashboard.html.
+   We need to add a button/link to each story that can do that. This is a different
+   page from dashboard.html. This page should show title, preview of latest update,
+   and have an add button.
+4. Home button
+5. Design Doc should be updated and very clear
