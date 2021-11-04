@@ -61,6 +61,25 @@
     <br>
     <br>
 
+    <table>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Stories</th>
+      </tr>
+
+      {% for user_info in users_list %}
+      <tr>
+        {% for col in user_info %}
+          <td>{{col}}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <br>
+    <br>
+
     <form action="/create_story">
       <input type="submit" value="Create Story">
     </form>

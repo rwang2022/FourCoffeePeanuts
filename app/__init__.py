@@ -124,7 +124,13 @@ def dashboard():
 
     c.execute("SELECT * FROM stories")
     stories_list = [line for line in c]
-    return render_template("dashboard.html", stories_list=stories_list)
+
+    c.execute("SELECT * FROM users")
+    users_list = [line for line in c]
+    print("\n\n\n")
+    print(users_list)
+    return render_template("dashboard.html", 
+        stories_list=stories_list, users_list=users_list)
 
 @app.route("/create_story")
 def create_story():
