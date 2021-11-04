@@ -105,7 +105,6 @@ def submit_login():
     except:
         return render_template("login_create.html", create=True, error="Error!")
         #overall catch for working site
-        #c.execute("SELECT password from users WHERE username=user")
 
 #logout page
 @app.route("/logout", methods=['GET', 'POST'])
@@ -129,7 +128,7 @@ def dashboard():
     users_list = [line for line in c]
     print("\n\n\n")
     print(users_list)
-    return render_template("dashboard.html", 
+    return render_template("dashboard.html",
         stories_list=stories_list, users_list=users_list)
 
 @app.route("/create_story")
@@ -193,6 +192,13 @@ def full_story():
         return render_template("full_story.html", title=story_title, story=story_text)
     else:
         return render_template("full_story.html", story="There seems to be a problem rendering the story")
+
+@app.route("/see_stories")
+def see_stories():
+    c.execute("SELECT * FROM stories")
+    stories_list = [line for line in c]
+
+    return render_template("see_stories.html", storiesList=stories_list)
 
 if __name__ == "__main__":
     app.debug = True

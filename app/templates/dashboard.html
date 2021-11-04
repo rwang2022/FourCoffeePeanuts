@@ -14,13 +14,13 @@
       border-collapse: collapse;
       width: 100%;
     }
-    
+
     td, th {
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
     }
-    
+
     tr:nth-child(even) {
       background-color: #dddddd;
     }
@@ -86,10 +86,14 @@
       <input type="submit" value="Create Story">
     </form>
 
+    <form action="/see_stories">
+      <input type="submit" value="See Stories">
+    </form>
+
     <form action="/logout" method="POST">
       <input type="submit" value="Log Out">
     </form>
-  
+
   </body>
 
 </html>

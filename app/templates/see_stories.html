@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+  Team fourCoffeePeanuts: Ryan Wang (PM), Eliza Knapp, Yaying Liang Li, Jesse Xie
+  SoftDev
+  P00 -- Move Slowly and Fix Things
+-->
+
+
+<html>
+
+  <head>
+    <title>
+      See Stories
+    </title>
+    <h1> All Stories </h1>
+  </head>
+
+  <body>
+    {% for story_info in storiesList %}
+      <h2> Title: {{story_info[0]}} </h2> <!-- title !-->
+      <p> Preview: {{story_info[1]}} </p> <!-- preview !-->
+      <!-- button to view story so that user can read latest preview and add edits in a box !-->
+      <form action="/dashboard" method="POST">
+        <input type="submit" value="View Story">
+      </form>
+      <br> </br> <!-- new line separating each story !-->
+
+    {% endfor %}
+  </body>
+
+</html>
