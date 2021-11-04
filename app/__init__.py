@@ -83,21 +83,19 @@ def submit_login():
             user = request.form.get("username") #get data from form
             passwd = request.form.get("password")
 
-            c.execute("SELECT * FROM users")
-            usersTable = c.fetchall() #fetch user table data from db file;
-            #usersTable is a list of tuples: [(user,pass,stories), (user,pass,stories)]
-
-            for value in usersTable:
-                if value[0] == user: #check if user is in the users database
-                    if value[1] == passwd: #if user is, check if password is correct
-                        global logged_in_user
-                        logged_in_user = user
-                        session[user] = passwd
-                        return redirect("/dashboard") #if everything works, log the user in successfully
-                    else: #user exists, but password is wrong
-                        return render_template("login_create.html", create=False, error="The password is incorrect") #call error fxn; indicate passwd is incorrect
+            c.execute("SELECT * FROM users WHERE username = (?)", (user,))
+            userFromDB = c.fetchall()
+            if (len(userFromDB) > 0): #check if user is in the users database
+                if (userFromDB[0][1] == passwd):
+                    global logged_in_user
+                    logged_in_user = user
+                    session[user] = passwd
+                    return redirect("/dashboard") #if everything works, log the user in successfully
+                else: #user exists, but password is wrong
+                    return render_template("login_create.html", create=False, error="The password is incorrect") #call error fxn; indicate passwd is incorrect
             return render_template("login_create.html", create=False, error="That user does not exist") #call error fxn; indicate username is incorrect
-            #only return this after checking all the usernames & confirming it doesn't exist
+        #only return this after checking all the usernames & confirming it doesn't exist
+
     except:
         return render_template("login_create.html", create=True, error="Error!")
         #overall catch for working site
@@ -139,14 +137,11 @@ def submit_create_story():
         latest_update = request.form.get("story")
 
         # check if the title is taken
-        '''
-        c.execute("SELECT * FROM stories WHERE name = (?)", title[0])
+        c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
 
         titleRepeats = c.fetchall()
-        print(titleRepeats)
         if (len(titleRepeats) > 0):
-            return render_template("create_story.html", error="Title already")
-        '''
+            return render_template("create_story.html", error="The name of the story is already taken")
 
         # adds the story info (title, story text) to the stories table in walnutLatte.db
         data_tuple = (title, latest_update, story)
