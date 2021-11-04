@@ -178,6 +178,15 @@ def submit_create_story():
     # TO DO: dashboard should now render the new story added to
     return redirect("/dashboard")
 
+@app.route("/full_story", methods=['GET', 'POST'])
+def full_story():
+    if request.method == "POST":
+        print("here")
+        story_text = request.form.get("full_story")
+        return render_template("full_story.html", story=story_text)
+    else:
+        return render_template("full_story.html", story="There seems to be a problem rendering the story")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

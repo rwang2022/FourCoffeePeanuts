@@ -127,3 +127,25 @@ Next steps
    and have an add button.
 3. Home button
 4. Design Doc should be updated and very clear
+
+elizaK -- 2021-11-03 22:25
+In __init__.py
+- created a /full_story route that renders the full story
+template and prints the full story of the text
+- if the method isn't post, then just render that there was
+an error
+In dashboard.html
+- changed loop structure so instead of the entire text,
+there is now a button that leads the user to a new page
+/full_story that contains the text
+In full_story.html
+- prints the entire story text of the proper story that
+was clicked in dashboard
+- still contains the logout button
+Next steps
+1. For now, the user cannot update the stories they see in the table in dashboard.html.
+   We need to add a button/link to each story that can do that. This is a different
+   page from dashboard.html. This page should show title, preview of latest update,
+   and have an add button.
+2. Home button
+3. Design Doc should be updated and very clear
