@@ -119,3 +119,11 @@ In __init__.py
 - amended logic for when checking to see if user name is already taken/ exists
 - Configured sessions for story generation and other pages
 - Added the stories that the user creates to the stories column of a user in the database
+Next steps
+1. There should be a link to read (for stories table)
+2. For now, the user cannot update the stories they see in the table in dashboard.html.
+   We need to add a button/link to each story that can do that. This is a different
+   page from dashboard.html. This page should show title, preview of latest update,
+   and have an add button.
+3. Home button
+4. Design Doc should be updated and very clear
