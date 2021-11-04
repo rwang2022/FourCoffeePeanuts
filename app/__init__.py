@@ -33,11 +33,15 @@ def main_page():
 # create account site
 @app.route("/create_account")
 def create_account():
+    if session.get(logged_in_user):
+        return redirect("/dashboard")
     return render_template("login_create.html", create=True)
 
 # handles submitting of create account
 @app.route("/submit_create_account", methods=['GET', 'POST'])
 def submit_create_account():
+    if session.get(logged_in_user):
+        return redirect("/dashboard")
     try:
         if request.method == "POST":
             username = request.form.get("username")
@@ -73,11 +77,16 @@ def submit_create_account():
 # login page
 @app.route("/login")
 def login():
+    if session.get(logged_in_user):
+        return redirect("/dashboard")
     return render_template("login_create.html", create=False)
 
 # handles submitting of login
 @app.route("/submit_login", methods=['GET', 'POST'])
 def submit_login():
+    global logged_in_user
+    if session.get(logged_in_user):
+        return redirect("/dashboard")
     try:
         if request.method == "POST":
             user = request.form.get("username") #get data from form
@@ -87,7 +96,6 @@ def submit_login():
             userFromDB = c.fetchall()
             if (len(userFromDB) > 0): #check if user is in the users database
                 if (userFromDB[0][1] == passwd):
-                    global logged_in_user
                     logged_in_user = user
                     session[user] = passwd
                     return redirect("/dashboard") #if everything works, log the user in successfully
@@ -122,10 +130,16 @@ def dashboard():
 
 @app.route("/create_story")
 def create_story():
+    if not session.get(logged_in_user):
+        # if session doesn't have the correct login info, i.e. you are not signed in
+        return render_template('main_page.html')
     return render_template("create_story.html")
 
 @app.route("/submit_create_story", methods=['GET', 'POST'])
 def submit_create_story():
+    if not session.get(logged_in_user):
+        # if session doesn't have the correct login info, i.e. you are not signed in
+        return render_template('main_page.html')
     # add the stuff to database
     if request.method == "POST":
         # current problem: it's not a post method but i don't know why
