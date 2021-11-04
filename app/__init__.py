@@ -122,12 +122,24 @@ def dashboard():
         return render_template('main_page.html')
 
     c.execute("SELECT * FROM stories")
-    stories_list = [line for line in c]
+    stories_list = []
 
-    c.execute("SELECT * FROM users")
+    c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
+    userStories = c.fetchall()
+    print(userStories)
+    userStoriesList = list(userStories[0][0].split(","))
+    print(userStoriesList)
     users_list = [line for line in c]
+
+    for story in userStoriesList:
+        c.execute("SELECT * FROM stories where name = (?)", (story,))
+        row =  c.fetchall()
+        stories_list.append(row)
+
+    #for debugging purposes, not needed
+    c.execute("SELECT * FROM users")
     print("\n\n\n")
-    print(users_list)
+
     return render_template("dashboard.html",
         stories_list=stories_list, users_list=users_list)
 
