@@ -50,6 +50,7 @@
           <td>{{story_info[1]}}</td>
           <td>
             <form action="/full_story" method="post">
+              <input type="hidden" name="story_title" value="{{story_info[0]}}">
               <input type="hidden" name="full_story" value="{{story_info[2]}}">
               <input type="submit" value="Full Story">
             </form>

@@ -173,9 +173,9 @@ def submit_create_story():
         c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
         storiesList = c.fetchall()
         if (storiesList[0][0] == ""):
-            amendedStoriesList = (story)
+            amendedStoriesList = (title)
         else:
-            amendedStoriesList = (storiesList[0][0] + "," + story)
+            amendedStoriesList = (storiesList[0][0] + "," + title)
         editStoriesList = "UPDATE users SET stories = (?) WHERE username = (?)"
         c.execute(editStoriesList,(amendedStoriesList,logged_in_user))
         db.commit()
@@ -187,9 +187,10 @@ def submit_create_story():
 @app.route("/full_story", methods=['GET', 'POST'])
 def full_story():
     if request.method == "POST":
-        print("here")
+        # print("here")
         story_text = request.form.get("full_story")
-        return render_template("full_story.html", story=story_text)
+        story_title = request.form.get("story_title")
+        return render_template("full_story.html", title=story_title, story=story_text)
     else:
         return render_template("full_story.html", story="There seems to be a problem rendering the story")
 

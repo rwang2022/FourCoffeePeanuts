@@ -149,3 +149,20 @@ Next steps
    and have an add button.
 2. Home button
 3. Design Doc should be updated and very clear
+
+ryanW -- 2021-11-03 23:00
+Allowed title to show up in /full_story
+  - added an extra <input> in dashboard.html
+  - added an extra story_title variable in full_story.html
+  - assigned that variable when calling render_template() in __init__.py line 193
+Changed how the "users" table keeps track of stories the user created
+  - now we track of their created stories using title instead of full story
+Next steps
+1. unique titles should be case-insensitive and remove spaces at beginning and end
+  (e.g. " COFFEE   " and "coffee" are the same)  
+2. We need the other table/page where users can see stories that they have NOT created
+  or contributed to. They should be able to see the title, a preview of latest update,
+  and a button to bring them to a page where they can add a latest update 
+  (at this new page they should be able to see title + latest update)
+3. Home button
+4. Design Doc should be updated and very clear
