@@ -137,6 +137,7 @@ def create_story():
 
 @app.route("/submit_create_story", methods=['GET', 'POST'])
 def submit_create_story():
+    global logged_in_user
     if not session.get(logged_in_user):
         # if session doesn't have the correct login info, i.e. you are not signed in
         return render_template('main_page.html')
@@ -163,6 +164,16 @@ def submit_create_story():
         (name, latestUpdate, fullStory)
         VALUES (?, ?, ?);"""
         c.execute(insert, data_tuple)
+
+        # adds created story to stories column in users table
+        c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
+        storiesList = c.fetchall()
+        if (storiesList[0][0] == ""):
+            amendedStoriesList = (story)
+        else:
+            amendedStoriesList = (storiesList[0][0] + "," + story)
+        editStoriesList = "UPDATE users SET stories = (?) WHERE username = (?)"
+        c.execute(editStoriesList,(amendedStoriesList,logged_in_user))
         db.commit()
 
     # then go back to dashboard
