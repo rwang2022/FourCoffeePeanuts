@@ -207,9 +207,19 @@ def full_story():
 
 @app.route("/see_stories")
 def see_stories():
+    global logged_in_user
+    
+    '''
+    #if story has not been editted by user, fetch it
+    c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
+    storiesList = c.fetchall()
+    
+    c.execute("SELECT * FROM stories WHERE name IN storiesList")
+    '''
     c.execute("SELECT * FROM stories")
     stories_list = [line for line in c]
 
+    #display all stories in the stories database
     return render_template("see_stories.html", storiesList=stories_list)
 
 if __name__ == "__main__":
