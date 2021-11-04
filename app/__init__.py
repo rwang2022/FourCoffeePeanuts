@@ -53,11 +53,9 @@ def submit_create_account():
             #fetch user table data from db file
             if username == '':
                 return render_template("login_create.html", create=True, error="Your username cannot be blank")
-            userTaken = False
-            for user in usersTable: # check if username is in the database
-                if user[0] == username:
-                    userTaken = True
-            if userTaken:
+            c.execute("SELECT * FROM users WHERE username = (?)", (username,))
+            userFromDB = c.fetchall()
+            if (len(userFromDB) > 0): #check if username is already in the users database
                 return render_template("login_create.html", create=True, error="That username has already been taken")
                 # if it is, return this username has been taken error
             elif password != same_password: # if it is not, check if the passwords match
@@ -95,9 +93,9 @@ def submit_login():
             c.execute("SELECT * FROM users WHERE username = (?)", (user,))
             userFromDB = c.fetchall()
             if (len(userFromDB) > 0): #check if user is in the users database
-                if (userFromDB[0][1] == passwd):
+                if (userFromDB[0][1] == passwd): #check if password is correct
                     logged_in_user = user
-                    session[user] = passwd
+                    session[user] = passwd #add session
                     return redirect("/dashboard") #if everything works, log the user in successfully
                 else: #user exists, but password is wrong
                     return render_template("login_create.html", create=False, error="The password is incorrect") #call error fxn; indicate passwd is incorrect
