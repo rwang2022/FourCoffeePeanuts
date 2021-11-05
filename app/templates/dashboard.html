@@ -34,35 +34,47 @@
   </head>
 
   <body>
-    <!-- For now, we will just print the stories
-    The users are supposed to be able to add to them -->
+    <h2>What's good, {{username}}?</h2>
+
     <h2>Stories List Below (added/contributed to, cannot update)</h2>
+
+    {% if (num_stories == 1) %}
+      <h2>You have contributed {{num_stories}} story</h2>
+    {% else %}
+      <h2>You have contributed {{num_stories}} stories</h2>
+    {% endif %}
+
     <table style="width:100%">
       <tr>
         <th>Title</th>
         <th>Latest Update</th>
         <th>Full Story</th>
       </tr>
-
-      {% for story_info in stories_list %}
-        <tr>
-          <td>{{story_info[0]}}</td>
-          <td>{{story_info[1]}}</td>
-          <td>
-            <form action="/full_story" method="post">
-              <input type="hidden" name="story_title" value="{{story_info[0]}}">
-              <input type="hidden" name="full_story" value="{{story_info[2]}}">
-              <input type="submit" value="Full Story">
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
+      {% if (num_stories != 0) %}
+        {% for story_info in stories_list %}
+          <tr>
+            <td>{{story_info[0][0]}}</td>
+            <td>{{story_info[0][1]}}</td>
+            <td>
+              <form action="/full_story" method="post">
+                <input type="hidden" name="story_title" value="{{story_info[0][0]}}">
+                <input type="hidden" name="full_story" value="{{story_info[0][2]}}">
+                <input type="submit" value="Full Story">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <td></td>
+        <td></td>
+        <td></td>
+      {% endif %}
     </table>
 
     <br>
     <br>
 
-    <h2>Users list below</h2>
+    <h2>Users list below (for debugging)</h2>
     <table>
       <tr>
         <th>Username</th>

@@ -3,6 +3,7 @@
 # P00 -- Move Slowly and Fix Things
 
 # setup
+from os import closerange
 from flask import Flask, render_template, request, redirect, session # flask imports
 import sqlite3   #enable control of an sqlite database
 
@@ -121,27 +122,49 @@ def dashboard():
         # if session doesn't have the correct login info, i.e. you are not signed in
         return render_template('main_page.html')
 
-    c.execute("SELECT * FROM stories")
-    stories_list = []
-
     c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
+    # this is only to create userStorieslist
     userStories = c.fetchall()
-    print(userStories)
+    # this list stores the titles of stories that user added/contributed
+    # [title1, title2, title3]
     userStoriesList = list(userStories[0][0].split(","))
-    print(userStoriesList)
-    users_list = [line for line in c]
 
+    # this is the number of titles
+    num_stories = len(userStoriesList)
+    # previously if userStoriesList == [''], num_stories == 1
+    # this corrects that
+    if (num_stories == 1) and (userStoriesList[0] == ''):
+        num_stories = 0
+    
+    stories_list = []
     for story in userStoriesList:
         c.execute("SELECT * FROM stories where name = (?)", (story,))
-        row =  c.fetchall()
+        row = c.fetchall()
         stories_list.append(row)
+    # to be clear the format of stories_list is as follows
+    # [ 
+    #     [(title1, latest1, fullstory1)],  # these are OF THE USER
+    #     [(title2, latest2, fullstory2)],  # these are OF THE USER
+    #     [(title3, latest3, fullstory3)],  # these are OF THE USER
+    # ]
+    # if empty it will look like [[]]
 
-    #for debugging purposes, not needed
+    print(f"userStoriesList: {userStoriesList}\n")
+    print(f"num_stories: {num_stories}\n")
+    print(f"stories_list: {stories_list}\n")
+
+    # this list stories the user,pass,titles info 
+    # and displays for debugging purposes
     c.execute("SELECT * FROM users")
-    print("\n\n\n")
+    users_list = [line for line in c]
 
-    return render_template("dashboard.html",
-        stories_list=stories_list, users_list=users_list)
+    return render_template(
+        "dashboard.html",
+        username=logged_in_user,         # so we can see username when we log in 
+        num_stories=num_stories,         # num of stories the user has added/contributed to
+        stories_list=stories_list,       # shows the tables user has added/contributed to
+        users_list=users_list,           # shows user,pass,titles for debugging
+        )
 
 @app.route("/create_story")
 def create_story():

@@ -174,7 +174,6 @@ Next steps
 yayingLL -- 2021-11-04 00:06
 -added See_Stories button in dashboard and see_stories html file corresponding to it
 -if user clicks on See_Stories, user is directed to page where they can see the Title and Preview of story
-
 Next steps
 1. The "Stories List Below (added/contributed to, cannot update)" should only show the 
   stories that the user added/contributed. if user catscats has one story contribution 
@@ -182,7 +181,26 @@ Next steps
   in this list.
 2. unique titles should be case-insensitive and remove spaces at beginning and end
   (e.g. " COFFEE   " and "coffee" are the same)  
-*3. see_stories page has to have functional button that brings user to a page where they can edit the story (at this page, the user should be able to see title + latest update, then a box where they can add update);
+*3. see_stories page has to have functional button that brings user to a page where they can edit the story 
+(at this page, the user should be able to see title + latest update, then a box where they can add update);
 -optionally, see_stories shouldn't display the stories the user already contributed to
 4. Home button
 5. Design Doc should be updated and very clear
+
+ryanW -- 2021-11-04 19:17
+Made sure the functionality of the "Stories List Below" works 
+  in dashboard.html
+  - Greeting to user
+  - Tell user how many story contributions they have
+    - takes into account singular/plural and cleaned error where 0 stories 
+      stil displays correctly (!)
+  - Title and Latest Update are now in separate columns
+Next steps
+1. unique titles should be case-insensitive and remove spaces at beginning and end
+  (e.g. " COFFEE   " and "coffee" are the same)  
+*2. see_stories page has to have functional button that brings user to a page where they can edit the story 
+(at this page, the user should be able to see title + latest update, then a box where they can add update);
+-optionally, see_stories shouldn't display the stories the user already contributed to
+(not really optional XD)
+3. Home button
+4. Design Doc should be updated and very clear
