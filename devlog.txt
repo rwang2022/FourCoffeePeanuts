@@ -247,10 +247,16 @@ Next steps
 3. Edit/amend design doc with changes
 4. Update see stories to have search and/or randomly generate them
 
-elizaK -- 2021-11-05 01:30
+elizaK -- 2021-11-05 01:45
 In full_story.html, see_stories.html, create_story.html, edit_story.html
 - added a return to dashboard button (note: is this the home button? I think so)
 In edit_story.html
 - discovered that to make it a post method, you have to do 
 method = post bc otherwise it might not work
+- added an error if for some reason submission doesn't work
 In __init__.py
+- created the /submit_edit_story route which takes the post
+from edit_story.html and updates the database with the correct
+info and then takes you back to the dashboard
+- if that doesn't work for some reason, it will return an error 
+- added the session stuff to the new functions

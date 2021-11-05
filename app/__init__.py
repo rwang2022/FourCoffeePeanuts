@@ -226,6 +226,9 @@ def submit_create_story():
 
 @app.route("/full_story", methods=['GET', 'POST'])
 def full_story():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
     if request.method == "POST":
         # print("here")
         story_text = request.form.get("full_story")
@@ -237,6 +240,8 @@ def full_story():
 @app.route("/see_stories")
 def see_stories():
     global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
 
     #if story has not been editted by user, fetch it
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
@@ -270,6 +275,9 @@ def see_stories():
 
 @app.route("/edit_story", methods=['GET', 'POST'])
 def edit_story():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
     if request.method == "POST":
         # print("here")
         story_title = request.form.get("story_title")
@@ -289,15 +297,15 @@ def edit_story():
 
 @app.route("/submit_edit_story", methods=['GET', 'POST'])
 def submit_edit_story():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
     if request.method == "POST":
         title = request.form.get("story_title")
         update = request.form.get("story")
-        print(title)
-        print(update)
-
+ 
         c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         story_row = c.fetchall() #gets the row with the title
-        print(story_row)
 
         # replace latestUpdate
         # replace fullStory
@@ -305,15 +313,12 @@ def submit_edit_story():
         new_latest_update = update
         c.execute("UPDATE stories SET latestUpdate = (?), fullStory = (?) WHERE name = (?)", (new_latest_update, new_full_story, title))
 
-        # below is for debugging
-        # c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
-        # print(c.fetchall())
+        #finally, it has to add the title to the user's list
 
-    return redirect("/dashboard")
+        
+        return redirect("/dashboard") # now you go back to dashboard
 
-    '''
-    redirect to full story (or should it be dashboard?)
-    '''
+    return redirect("/edit_story", error="something went wrong")
 
 
 if __name__ == "__main__":
