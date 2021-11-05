@@ -135,14 +135,14 @@ def dashboard():
     # this corrects that
     if (num_stories == 1) and (userStoriesList[0] == ''):
         num_stories = 0
-    
+
     stories_list = []
     for story in userStoriesList:
         c.execute("SELECT * FROM stories where name = (?)", (story,))
         row = c.fetchall()
         stories_list.append(row)
     # to be clear the format of stories_list is as follows
-    # [ 
+    # [
     #     [(title1, latest1, fullstory1)],  # these are OF THE USER
     #     [(title2, latest2, fullstory2)],  # these are OF THE USER
     #     [(title3, latest3, fullstory3)],  # these are OF THE USER
@@ -153,14 +153,14 @@ def dashboard():
     print(f"num_stories: {num_stories}\n")
     print(f"stories_list: {stories_list}\n")
 
-    # this list stories the user,pass,titles info 
+    # this list stories the user,pass,titles info
     # and displays for debugging purposes
     c.execute("SELECT * FROM users")
     users_list = [line for line in c]
 
     return render_template(
         "dashboard.html",
-        username=logged_in_user,         # so we can see username when we log in 
+        username=logged_in_user,         # so we can see username when we log in
         num_stories=num_stories,         # num of stories the user has added/contributed to
         stories_list=stories_list,       # shows the tables user has added/contributed to
         users_list=users_list,           # shows user,pass,titles for debugging
@@ -185,12 +185,12 @@ def submit_create_story():
 
         # stores the info into handy variables to put into a tuple,
         # to insert into the stories stories in the DB
-        title = request.form.get("title")
+        title = request.form.get("title").strip() #remove whitespace at beginning and end
         story = request.form.get("story")
         latest_update = request.form.get("story")
 
         # check if the title is taken
-        c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
+        c.execute("SELECT * FROM stories WHERE lower(name) = (?)", (title.lower(),)) # case insensitive
 
         titleRepeats = c.fetchall()
         if (len(titleRepeats) > 0):
@@ -231,12 +231,12 @@ def full_story():
 @app.route("/see_stories")
 def see_stories():
     global logged_in_user
-    
+
     '''
     #if story has not been editted by user, fetch it
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
     storiesList = c.fetchall()
-    
+
     c.execute("SELECT * FROM stories WHERE name IN storiesList")
     '''
     c.execute("SELECT * FROM stories")
