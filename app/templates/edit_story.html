@@ -16,7 +16,10 @@
   </head>
 
   <body>
-    <h2> Latest update to the story: </h2>
+    <form action="/dashboard">
+      <input type="submit" value="Return to Dashboard">
+    </form>
+    <h3> Latest update to the story: </h3>
     {{ story_preview }}
     <form action="/dashboard"> <!-- should be submit_edit_story -->
       <!-- story text -->

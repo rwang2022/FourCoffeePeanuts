@@ -16,6 +16,9 @@
   </head>
 
   <body>
+    <form action="/dashboard">
+      <input type="submit" value="Return to Dashboard">
+    </form>
     {% for story_info in storiesList %}
       {% if (story_info != []) %}
         <h2> Title:  {{story_info[0][0]}} </h2> <!-- title !-->

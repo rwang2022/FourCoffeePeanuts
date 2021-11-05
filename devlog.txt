@@ -246,3 +246,7 @@ Next steps
 2. Add a home button
 3. Edit/amend design doc with changes
 4. Update see stories to have search and/or randomly generate them
+
+elizaK -- 2021-11-05 01:30
+In full_story.html, see_stories.html, create_story.html, edit_story.html
+- added a return to dashboard button (note: is this the home button? I think so)
