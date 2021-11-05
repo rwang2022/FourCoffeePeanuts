@@ -30,7 +30,6 @@ if on Mac/Linux: <br>
 install dependencies<br>
 `(venv) $ pip install -r requirements.txt`
 
-pip install virtualenv
 ## Run Instructions
 cd into app <br>
 `(venv) $ cd app`
