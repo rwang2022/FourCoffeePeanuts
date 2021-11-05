@@ -19,7 +19,7 @@ if user doesn't already have virtualenv module installed <br>
 `$ pip install virtualenv`
 
 create the virtual environment<br>
-`$ python -m virtualenv venv`
+`$ python3 -m virtualenv venv`
 
 activate the virtual environment<br>
 `$ source venv/Scripts/activate`
