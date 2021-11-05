@@ -153,16 +153,22 @@ def dashboard():
     #print(f"num_stories: {num_stories}\n")
     #print(f"stories_list: {stories_list}\n")
 
-    # this list stories the user,pass,titles info
+    # this list stores the user,pass,titles info
     # and displays for debugging purposes
     c.execute("SELECT * FROM users")
     users_list = [line for line in c]
+
+    # this list stores the titles,latest,full info
+    # and displays for debugging purposes
+    c.execute("SELECT * FROM stories")
+    db_stories_list = [line for line in c]
 
     return render_template(
         "dashboard.html",
         username=logged_in_user,         # so we can see username when we log in
         num_stories=num_stories,         # num of stories the user has added/contributed to
         stories_list=stories_list,       # shows the tables user has added/contributed to
+        db_stories_list=db_stories_list, # shows title,latest,full for debugging
         users_list=users_list,           # shows user,pass,titles for debugging
         )
 
@@ -234,37 +240,32 @@ def see_stories():
 
     #if story has not been editted by user, fetch it
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
-    storiesList = c.fetchall()
-    #formatting of storiesList
-    #[('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',), ('four',)]
+    stories_list = c.fetchall()
+    # stories_list: 
+    # [('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',)]
 
-    stories_list = []
+    # obviously, this is not easy to work with, so we will put all the elements into 
+    # one single list: clean_stories_list
+
+    # this works but I must come back later to explain why
+    stories_string = ""
+    for line in stories_list:
+        stories_string += line[0] + ","
+    clean_stories_list = stories_string.split(",")
+    # removes empty strings
+    clean_stories_list = [title for title in clean_stories_list if title]
+
+    print(f"stories_string: {stories_string}")
+    print(f"clean_stories_list: {clean_stories_list}")
+
     storiesList = []
-    for values in storiesList:
-        #print(values) #('Coffee,Peanut,DOGS,test',)
-        converted_string = ','.join(values) #convert tuple to string
-        #print(converted_string) #Coffee,Peanut,DOGS,test
-        titles = converted_string.split(',') #split string by commas to get list of titles
-        for title in titles: #add all the title(s) in titles
-            if title != '':
-                stories_list.append(title)
-
-        #get all information from stories database for every story in stories_list
-        for story in stories_list:
-            c.execute("SELECT * FROM stories WHERE name = (?)", (story,))
-            row = c.fetchall()
-            storiesList.append(row)
-            print(storiesList)
-
-    #stories_list = [line for line in c]
-    '''
-    for story in userStoriesList:
-        c.execute("SELECT * FROM stories where name = (?)", (story,))
+    for story in clean_stories_list:
+        c.execute("SELECT * FROM stories WHERE name = (?)", (story,))
         row = c.fetchall()
-        stories_list.append(row)
-    '''
+        storiesList.append(row)
 
     #display all stories in the stories database that the user hasn't added to yet
+    # return redirect("/dashboard")
     return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/edit_story", methods=['GET', 'POST'])

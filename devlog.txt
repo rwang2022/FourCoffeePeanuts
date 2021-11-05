@@ -230,3 +230,19 @@ Next steps
 3. Edit/amend design doc with changes
 4. Update see stories to have search and/or randomly generate them
 5. fix see_stories so the stories the user hasn't added to show up - right now, only characters from the stories are showing up - indexing error?
+
+ryanW -- 2021-11-05 00:00
+In dashboard.html
+  - Added both "all stories list" and "users" list for debugging
+  - Put some ASCII art for fun
+  - Moved the 3 buttons to top right
+  - Made sure "See Stories Button" works
+In see_stories() in __init__.py
+  - did some logic with some lists 
+  - it returns a list of stories that the user did NOT contribute to, to see_stories.html
+    so that it show the stories
+Next steps
+1. fill out function to submit edits and add to database
+2. Add a home button
+3. Edit/amend design doc with changes
+4. Update see stories to have search and/or randomly generate them

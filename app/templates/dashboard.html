@@ -24,6 +24,10 @@
     tr:nth-child(even) {
       background-color: #dddddd;
     }
+    
+    input {
+      float: right;
+    }
   </style>
 
   <head>
@@ -34,7 +38,39 @@
   </head>
 
   <body>
+    <form action="/create_story">
+      <input type="submit" value="Create Story">
+    </form>
+
+    <form action="/see_stories">
+      <input type="submit" value="See Stories">
+    </form>
+
+    <form action="/logout" method="POST">
+      <input type="submit" value="Log Out">
+    </form>
+
     <h2>What's good, {{username}}?</h2>
+
+    <!-- WE REMEMBER OUR ROOTS -->
+    <pre>
+      ,+.    ,+.    ,+.    ,+.   
+      ((|))  ((|))  ((|))  ((|))  
+      )|(    )|(    )|(    )|(   
+      ((|))  ((|))  ((|))  ((|))  
+      `-'    `-'    `-'    `-'   
+          (  )   (   )  )
+            ) (   )  (  (
+            ( )  (    ) )
+            _____________
+          <_____________> ___
+          |             |/ _ \
+          |               | | |
+          |               |_| |
+        ___|             |\___/
+        /    \___________/    \
+        \_____________________/
+    </pre>
 
     <h2>Stories List Below (added/contributed to, cannot update)</h2>
 
@@ -74,6 +110,26 @@
     <br>
     <br>
 
+    <h2>All stories list below (for debugging)</h2>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Latest</th>
+        <th>Full</th>
+      </tr>
+
+      {% for story_info in db_stories_list%}
+      <tr>
+        {% for col in story_info %}
+          <td>{{col}}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <br>
+    <br>
+
     <h2>Users list below (for debugging)</h2>
     <table>
       <tr>
@@ -93,18 +149,6 @@
 
     <br>
     <br>
-
-    <form action="/create_story">
-      <input type="submit" value="Create Story">
-    </form>
-
-    <form action="/see_stories">
-      <input type="submit" value="See Stories">
-    </form>
-
-    <form action="/logout" method="POST">
-      <input type="submit" value="Log Out">
-    </form>
 
   </body>
 
