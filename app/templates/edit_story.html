@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+  Team fourCoffeePeanuts: Ryan Wang (PM), Eliza Knapp, Yaying Liang Li, Jesse Xie
+  SoftDev
+  P00 -- Move Slowly and Fix Things
+-->
+
+
+<html>
+
+  <head>
+    <title>
+      Edit a story
+    </title>
+    <h1> {{ title }} </h1>
+  </head>
+
+  <body>
+    <h2> Latest update to the story: </h2>
+    {{ story_preview }}
+    <form action="/dashboard"> <!-- should be submit_edit_story -->
+      <!-- story text -->
+      <p>Story Text:<br>
+        <textarea type="text" name="story" rows=10 cols=100></textarea>
+      </p>
+      <input type="submit" value="Submit">
+    </form>
+
+    <form action="/dashboard">
+      <input type="submit" value="Dashboard">
+    </form>
+  </body>
+
+</html>

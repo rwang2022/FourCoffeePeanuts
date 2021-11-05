@@ -149,9 +149,9 @@ def dashboard():
     # ]
     # if empty it will look like [[]]
 
-    print(f"userStoriesList: {userStoriesList}\n")
-    print(f"num_stories: {num_stories}\n")
-    print(f"stories_list: {stories_list}\n")
+    #print(f"userStoriesList: {userStoriesList}\n")
+    #print(f"num_stories: {num_stories}\n")
+    #print(f"stories_list: {stories_list}\n")
 
     # this list stories the user,pass,titles info
     # and displays for debugging purposes
@@ -244,6 +244,34 @@ def see_stories():
 
     #display all stories in the stories database
     return render_template("see_stories.html", storiesList=stories_list)
+
+@app.route("/edit_story", methods=['GET', 'POST'])
+def edit_story():
+    if request.method == "POST":
+        # print("here")
+        story_title = request.form.get("story_title")
+        story_preview = request.form.get("preview")
+        c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
+        # this is only to create userStorieslist
+        userStories = c.fetchall()
+        # this list stores the titles of stories that user added/contributed
+        # [title1, title2, title3]
+        userStoriesList = list(userStories[0][0].split(","))
+        if userStoriesList.count(story_title) > 0:
+            return redirect("/dashboard") # redirect to dashboard if user has contributed already
+        return render_template("edit_story.html", title=story_title, story_preview=story_preview)
+    else:
+        return redirect("/dashboard")
+
+'''
+@app.route("/submit_edit_story", methods=['GET', 'POST'])
+def submit_edit_story():
+    in sqlite3 db
+        replace latestUpdate in stories with new latest update
+        replace old story with new one with latest update
+        add to stories list of user
+    redirect to full story
+'''
 
 if __name__ == "__main__":
     app.debug = True
