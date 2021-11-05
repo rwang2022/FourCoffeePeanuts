@@ -158,15 +158,15 @@ Allowed title to show up in /full_story
 Changed how the "users" table keeps track of stories the user created
   - now we track of their created stories using title instead of full story
 Next steps
-1. The "Stories List Below (added/contributed to, cannot update)" should only show the 
-  stories that the user added/contributed. if user catscats has one story contribution 
-  (titled "Coffee") then catscats should only be able to see story titled "Coffee" 
+1. The "Stories List Below (added/contributed to, cannot update)" should only show the
+  stories that the user added/contributed. if user catscats has one story contribution
+  (titled "Coffee") then catscats should only be able to see story titled "Coffee"
   in this list.
 2. unique titles should be case-insensitive and remove spaces at beginning and end
-  (e.g. " COFFEE   " and "coffee" are the same)  
+  (e.g. " COFFEE   " and "coffee" are the same)
 3. We need the other table/page where users can see stories that they have NOT created
   or contributed to. They should be able to see the title, a preview of latest update,
-  and a button to bring them to a page where they can add a latest update 
+  and a button to bring them to a page where they can add a latest update
   (at this new page they should be able to see title + latest update)
 4. Home button
 5. Design Doc should be updated and very clear
@@ -175,32 +175,47 @@ yayingLL -- 2021-11-04 00:06
 -added See_Stories button in dashboard and see_stories html file corresponding to it
 -if user clicks on See_Stories, user is directed to page where they can see the Title and Preview of story
 Next steps
-1. The "Stories List Below (added/contributed to, cannot update)" should only show the 
-  stories that the user added/contributed. if user catscats has one story contribution 
-  (titled "Coffee") then catscats should only be able to see story titled "Coffee" 
+1. The "Stories List Below (added/contributed to, cannot update)" should only show the
+  stories that the user added/contributed. if user catscats has one story contribution
+  (titled "Coffee") then catscats should only be able to see story titled "Coffee"
   in this list.
 2. unique titles should be case-insensitive and remove spaces at beginning and end
-  (e.g. " COFFEE   " and "coffee" are the same)  
-*3. see_stories page has to have functional button that brings user to a page where they can edit the story 
+  (e.g. " COFFEE   " and "coffee" are the same)
+*3. see_stories page has to have functional button that brings user to a page where they can edit the story
 (at this page, the user should be able to see title + latest update, then a box where they can add update);
 -optionally, see_stories shouldn't display the stories the user already contributed to
 4. Home button
 5. Design Doc should be updated and very clear
 
 ryanW -- 2021-11-04 19:17
-Made sure the functionality of the "Stories List Below" works 
+Made sure the functionality of the "Stories List Below" works
   in dashboard.html
   - Greeting to user
   - Tell user how many story contributions they have
-    - takes into account singular/plural and cleaned error where 0 stories 
+    - takes into account singular/plural and cleaned error where 0 stories
       stil displays correctly (!)
   - Title and Latest Update are now in separate columns
 Next steps
 1. unique titles should be case-insensitive and remove spaces at beginning and end
-  (e.g. " COFFEE   " and "coffee" are the same)  
-*2. see_stories page has to have functional button that brings user to a page where they can edit the story 
+  (e.g. " COFFEE   " and "coffee" are the same)
+*2. see_stories page has to have functional button that brings user to a page where they can edit the story
 (at this page, the user should be able to see title + latest update, then a box where they can add update);
 -optionally, see_stories shouldn't display the stories the user already contributed to
 (not really optional XD)
 3. Home button
 4. Design Doc should be updated and very clear
+
+jesseX -- 2021-11-04 22:06
+In __init__.py
+- checks to see if the story name is taken but now excludes whitespace at beginning and end, also is now case insensitive
+- added dashboard button to see stories and edit story
+- added route to edit_story.html that has a text box for edits to be made as well as the title and preview
+- outlined submit edit story
+In templates
+- edited see_stories.html to have hidden parameters to send data of story to edit_story.html
+- added edit_story.html
+Next steps
+1. fill out function to submit edits and add to database
+2. Add a home button
+3. Edit/amend design doc with changes
+4. Update see stories to have search and/or randomly generate them
