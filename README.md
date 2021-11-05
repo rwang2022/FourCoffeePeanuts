@@ -27,13 +27,13 @@ activate the virtual environment<br>
 install dependencies<br>
 `(venv) $ pip install -r requirements.txt`
 
-
+pip install virtualenv
 ## Run Instructions
 cd into app <br>
 `(venv) $ cd app`
 
 run the python file<br>
-`(venv) $ python __init__.py`
+`(venv) $ python3 __init__.py`
 
 the link to the site<br>
 http://127.0.0.1:5000/
