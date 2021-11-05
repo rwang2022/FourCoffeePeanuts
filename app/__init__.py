@@ -314,8 +314,12 @@ def submit_edit_story():
         c.execute("UPDATE stories SET latestUpdate = (?), fullStory = (?) WHERE name = (?)", (new_latest_update, new_full_story, title))
 
         #finally, it has to add the title to the user's list
+        c.execute("SELECT stories FROM users WHERE username = (?)",(logged_in_user,))
+        all_stories = c.fetchall()[0][0]
+        new_all_stories = (all_stories + "," + title)
+        c.execute("UPDATE users SET stories = (?) WHERE username = (?)", (new_all_stories, logged_in_user))
+        db.commit()
 
-        
         return redirect("/dashboard") # now you go back to dashboard
 
     return redirect("/edit_story", error="something went wrong")
