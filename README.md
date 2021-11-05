@@ -22,7 +22,10 @@ create the virtual environment<br>
 `$ python3 -m virtualenv venv`
 
 activate the virtual environment<br>
+if on Windows: <br>
 `$ source venv/Scripts/activate`
+if on Mac/Linux: <br>
+`$ source venv/bin/activate`
 
 install dependencies<br>
 `(venv) $ pip install -r requirements.txt`
