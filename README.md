@@ -23,7 +23,7 @@ create the virtual environment<br>
 
 activate the virtual environment<br>
 if on Windows: <br>
-`$ source venv/Scripts/activate`
+`$ source venv/Scripts/activate` <br>
 if on Mac/Linux: <br>
 `$ source venv/bin/activate`
 
