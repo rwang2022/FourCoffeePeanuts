@@ -250,3 +250,7 @@ Next steps
 elizaK -- 2021-11-05 01:30
 In full_story.html, see_stories.html, create_story.html, edit_story.html
 - added a return to dashboard button (note: is this the home button? I think so)
+In edit_story.html
+- discovered that to make it a post method, you have to do 
+method = post bc otherwise it might not work
+In __init__.py

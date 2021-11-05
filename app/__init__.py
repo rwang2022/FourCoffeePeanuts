@@ -286,15 +286,23 @@ def edit_story():
     else:
         return redirect("/dashboard")
 
-'''
+
 @app.route("/submit_edit_story", methods=['GET', 'POST'])
 def submit_edit_story():
+    if request.method == "POST":
+        title = request.form.get("story_title")
+        update = request.form.get("story")
+        print(title)
+        print(update)
+    return redirect("/dashboard")
+    '''
     in sqlite3 db
         replace latestUpdate in stories with new latest update
         replace old story with new one with latest update
         add to stories list of user
-    redirect to full story
-'''
+    redirect to full story (or should it be dashboard?)
+    '''
+
 
 if __name__ == "__main__":
     app.debug = True
