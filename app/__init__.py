@@ -232,18 +232,40 @@ def full_story():
 def see_stories():
     global logged_in_user
 
-    '''
     #if story has not been editted by user, fetch it
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
     storiesList = c.fetchall()
+    #formatting of storiesList
+    #[('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',), ('four',)]
 
-    c.execute("SELECT * FROM stories WHERE name IN storiesList")
+    stories_list = []
+    storiesList = []
+    for values in storiesList:
+        #print(values) #('Coffee,Peanut,DOGS,test',)
+        converted_string = ','.join(values) #convert tuple to string
+        #print(converted_string) #Coffee,Peanut,DOGS,test
+        titles = converted_string.split(',') #split string by commas to get list of titles
+        for title in titles: #add all the title(s) in titles
+            if title != '':
+                stories_list.append(title)
+
+        #get all information from stories database for every story in stories_list
+        for story in stories_list:
+            c.execute("SELECT * FROM stories WHERE name = (?)", (story,))
+            row = c.fetchall()
+            storiesList.append(row)
+            print(storiesList)
+
+    #stories_list = [line for line in c]
     '''
-    c.execute("SELECT * FROM stories")
-    stories_list = [line for line in c]
+    for story in userStoriesList:
+        c.execute("SELECT * FROM stories where name = (?)", (story,))
+        row = c.fetchall()
+        stories_list.append(row)
+    '''
 
-    #display all stories in the stories database
-    return render_template("see_stories.html", storiesList=stories_list)
+    #display all stories in the stories database that the user hasn't added to yet
+    return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/edit_story", methods=['GET', 'POST'])
 def edit_story():
