@@ -219,3 +219,14 @@ Next steps
 2. Add a home button
 3. Edit/amend design doc with changes
 4. Update see stories to have search and/or randomly generate them
+
+yayingLL -- 2021-11-04 23:49
+In __init__.py/see_stories
+-attempted to add functionality to see_stories where stories the user hasn't added to appears on page
+  -plan: get all the stories that don't correspond to the logged_in_user, get their information from the stories database, and display this info on page
+Next steps
+1. fill out function to submit edits and add to database
+2. Add a home button
+3. Edit/amend design doc with changes
+4. Update see stories to have search and/or randomly generate them
+5. fix see_stories so the stories the user hasn't added to show up - right now, only characters from the stories are showing up - indexing error?
