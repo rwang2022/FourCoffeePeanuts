@@ -15,6 +15,9 @@ clone repo <br>
 cd into it<br>
 `$ cd FourCoffeePeanuts/`
 
+if user doesn't already have virtualenv module installed
+`$ pip install virtualenv`
+
 create the virtual environment<br>
 `$ python -m virtualenv venv`
 
