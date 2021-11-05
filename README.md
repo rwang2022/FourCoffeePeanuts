@@ -14,7 +14,7 @@ $ git clone https://github.com/rwang2022/FourCoffeePeanuts.git
 $ cd FourCoffeePeanuts
 $ python -m virtualenv venv
 $ source venv/Scripts/activate
-$ pip install -r requirements.txt
+(venv) $ pip install -r requirements.txt
 ```
 
 ## Run Instructions
