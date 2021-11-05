@@ -11,7 +11,7 @@ StoryBrew is our collaborative storytelling website. After landing on our main p
 ## Install Instructions
 ```
 $ git clone https://github.com/rwang2022/FourCoffeePeanuts.git
-$ cd FourCoffeePeanuts
+$ cd FourCoffeePeanuts/
 $ python -m virtualenv venv
 $ source venv/Scripts/activate
 (venv) $ pip install -r requirements.txt
@@ -19,5 +19,6 @@ $ source venv/Scripts/activate
 
 ## Run Instructions
 ```
-$ python app.py
+$ cd app
+$ python __init__.py
 ```
