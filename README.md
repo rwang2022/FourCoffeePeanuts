@@ -32,5 +32,5 @@ cd into app <br>
 run the python file<br>
 `(venv) $ python __init__.py`
 
-the link to the site
+the link to the site<br>
 http://127.0.0.1:5000/
