@@ -10,27 +10,27 @@ StoryBrew is our collaborative storytelling website. After landing on our main p
 
 ## Install Instructions
 clone repo
-'$ git clone https://github.com/rwang2022/FourCoffeePeanuts.git'
+`$ git clone https://github.com/rwang2022/FourCoffeePeanuts.git`
 
 cd into it
-'$ cd FourCoffeePeanuts/'
+`$ cd FourCoffeePeanuts/`
 
 create the virtual environment
-'$ python -m virtualenv venv'
+`$ python -m virtualenv venv`
 
 activate the virtual environment
-'$ source venv/Scripts/activate'
+`$ source venv/Scripts/activate`
 
 install dependencies
-'(venv) $ pip install -r requirements.txt'
+`(venv) $ pip install -r requirements.txt`
 
 
 ## Run Instructions
 cd into app 
-'(venv) $ cd app'
+`(venv) $ cd app`
 
 run the python file
-'(venv) $ python __init__.py'
+`(venv) $ python __init__.py`
 
 the link to the site
 http://127.0.0.1:5000/
