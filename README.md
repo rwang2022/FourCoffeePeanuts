@@ -19,6 +19,6 @@ $ source venv/Scripts/activate
 
 ## Run Instructions
 ```
-$ cd app
-$ python __init__.py
+(venv) $ cd app
+(venv) $ python __init__.py
 ```
