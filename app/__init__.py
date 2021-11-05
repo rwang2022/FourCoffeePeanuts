@@ -246,10 +246,10 @@ def see_stories():
     #if story has not been editted by user, fetch it
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
     stories_list = c.fetchall()
-    # stories_list: 
+    # stories_list:
     # [('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',)]
 
-    # obviously, this is not easy to work with, so we will put all the elements into 
+    # obviously, this is not easy to work with, so we will put all the elements into
     # one single list: clean_stories_list
 
     # this works but I must come back later to explain why
@@ -303,7 +303,7 @@ def submit_edit_story():
     if request.method == "POST":
         title = request.form.get("story_title")
         update = request.form.get("story")
- 
+
         c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         story_row = c.fetchall() #gets the row with the title
 
@@ -316,7 +316,10 @@ def submit_edit_story():
         #finally, it has to add the title to the user's list
         c.execute("SELECT stories FROM users WHERE username = (?)",(logged_in_user,))
         all_stories = c.fetchall()[0][0]
-        new_all_stories = (all_stories + "," + title)
+        if (all_stories == ""):
+            new_all_stories = (title)
+        else:
+            new_all_stories = (all_stories + "," + title)
         c.execute("UPDATE users SET stories = (?) WHERE username = (?)", (new_all_stories, logged_in_user))
         db.commit()
 
