@@ -294,12 +294,24 @@ def submit_edit_story():
         update = request.form.get("story")
         print(title)
         print(update)
+
+        c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
+        story_row = c.fetchall() #gets the row with the title
+        print(story_row)
+
+        # replace latestUpdate
+        # replace fullStory
+        new_full_story = story_row[0][2] + update
+        new_latest_update = update
+        c.execute("UPDATE stories SET latestUpdate = (?), fullStory = (?) WHERE name = (?)", (new_latest_update, new_full_story, title))
+
+        # below is for debugging
+        # c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
+        # print(c.fetchall())
+
     return redirect("/dashboard")
+
     '''
-    in sqlite3 db
-        replace latestUpdate in stories with new latest update
-        replace old story with new one with latest update
-        add to stories list of user
     redirect to full story (or should it be dashboard?)
     '''
 
