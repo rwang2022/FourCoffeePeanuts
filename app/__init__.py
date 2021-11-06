@@ -27,6 +27,7 @@ logged_in_user = ""
 # renders the main page
 @app.route("/")
 def main_page():
+    global logged_in_user
     if session.get(logged_in_user):
         return redirect("/dashboard")
     return render_template("main_page.html")
@@ -41,6 +42,7 @@ def create_account():
 # handles submitting of create account
 @app.route("/submit_create_account", methods=['GET', 'POST'])
 def submit_create_account():
+    global logged_in_user
     if session.get(logged_in_user):
         return redirect("/dashboard")
     try:
@@ -56,9 +58,10 @@ def submit_create_account():
                 return render_template("login_create.html", create=True, error="Your username cannot be blank")
             c.execute("SELECT * FROM users WHERE username = (?)", (username,))
             userFromDB = c.fetchall()
+            # print(f"\n\nuserFromDB: {userFromDB}\n\n")
             if (len(userFromDB) > 0): #check if username is already in the users database
                 return render_template("login_create.html", create=True, error="That username has already been taken")
-                # if it is, return this username has been taken error
+                # if it is, return this username has been taken error                
             elif password != same_password: # if it is not, check if the passwords match
                 return render_template("login_create.html", create=True, error="The passwords do not match")
                 # if they do not, return passwords do not match error
@@ -69,7 +72,17 @@ def submit_create_account():
                 addAccount = f"INSERT INTO users VALUES(?,?,?)" # if they do, add the entry to the database
                 c.execute(addAccount,info) #add user data to table
                 db.commit() #save changes
-                return redirect("/dashboard")
+                
+                # log them in right after creating account
+                # finally!!! (so annoying before)
+                c.execute("SELECT * FROM users WHERE username = (?)", (username,))
+                userFromDB = c.fetchall()
+                if (len(userFromDB) > 0): #check if username is in the users database
+                    if (userFromDB[0][1] == password): #check if password is correct
+                        logged_in_user = username
+                        session[username] = password #add session
+                        return redirect("/dashboard") #if everything works, log the user in successfully
+                
     except:
         return render_template("login_create.html", create=True, error="Error!") # overall error catch
 
