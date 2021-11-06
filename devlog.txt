@@ -266,3 +266,15 @@ page
 Next steps:
 1. Edit/amend design doc with changes
 2. Update see stories to have search and/or randomly generate them
+
+ryanW -- 2021-11-06 00:00
+In see_stories() in __init__.py:
+- BUG: c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
+    Say logged_in_user is user1, and there is a user2 and user3.
+    This code selects stories that user2 and user3 contributed to. 
+    However, this might include stories user1 contributed to, if user1 contributed to a story of user2 or user3.
+- BUG FIX: Thus, we need to get the user2 and user3 stories then remove user1 stories.
+  (It has been done, with the help of flatten_and_clean())
+  
+
+    

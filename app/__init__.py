@@ -237,35 +237,46 @@ def full_story():
     else:
         return render_template("full_story.html", story="There seems to be a problem rendering the story")
 
+
+def flat_clean(c_fetch_all_list):
+    # c_fetch_all_list is a list of tuples, each tuple representing the stories of each user
+    # the first element of each tuple is a comma-separated str of titles  
+    ''' returns a "flattened" set with no empty strings '''
+    title_str = ""
+    for line_tuple in c_fetch_all_list:
+        title_str += line_tuple[0] + ","
+    flat_list = title_str.split(",")
+    # remove empty strings
+    flat_list = [title for title in flat_list if title]
+    return set(flat_list)
+
+
 @app.route("/see_stories")
 def see_stories():
     global logged_in_user
     if not session.get(logged_in_user):
         return render_template('main_page.html')
 
-    #if story has not been editted by user, fetch it
+    # collects stories that other users contributed to 
+    # IMPORTANT: logged_in_user may have contributed to these stories 
+    # we must remove duplicates, and those stories
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
-    stories_list = c.fetchall()
-    # stories_list:
-    # [('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',)]
+    other_user_stories = c.fetchall()
 
-    # obviously, this is not easy to work with, so we will put all the elements into
-    # one single list: clean_stories_list
+    # these are the stories we will remove
+    c.execute("SELECT stories FROM users WHERE username == (?)", (logged_in_user,))
+    logged_user_stories = c.fetchall()
+    # c.fetchall() returns something like [('Coffee,Peanut,DOGS,test',), ('COFFEE,coffee2',), ('',)]
+    # we will "flatten" c.fetchall() using flat_clean()
 
-    # this works but I must come back later to explain why
-    stories_string = ""
-    for line in stories_list:
-        stories_string += line[0] + ","
-    clean_stories_list = stories_string.split(",")
-    # removes empty strings
-    clean_stories_list = [title for title in clean_stories_list if title]
-
-    print(f"stories_string: {stories_string}")
-    print(f"clean_stories_list: {clean_stories_list}")
+    # finally creating a clean list of untouched titles
+    flat_other_titles  = flat_clean(other_user_stories)
+    flat_logged_titles = flat_clean(logged_user_stories)
+    untouched_titles = list(flat_other_titles - flat_logged_titles)
 
     storiesList = []
-    for story in clean_stories_list:
-        c.execute("SELECT * FROM stories WHERE name = (?)", (story,))
+    for title in untouched_titles:
+        c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         row = c.fetchall()
         storiesList.append(row)
 
@@ -289,6 +300,8 @@ def edit_story():
         # [title1, title2, title3]
         userStoriesList = list(userStories[0][0].split(","))
         if userStoriesList.count(story_title) > 0:
+
+            # if user has contributed already, and redirect to dashboard
             return redirect("/dashboard") # redirect to dashboard if user has contributed already
         return render_template("edit_story.html", title=story_title, story_preview=story_preview)
     else:
