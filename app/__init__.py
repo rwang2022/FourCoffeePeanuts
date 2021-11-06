@@ -282,7 +282,15 @@ def see_stories():
 
     #display all stories in the stories database that the user hasn't added to yet
     # return redirect("/dashboard")
+    print(storiesList)
     return render_template("see_stories.html", storiesList=storiesList)
+
+@app.route("/search_see_stories", methods=['GET','POST'])
+def search_see_stories():
+    # put stories that match search criteria here
+    # right now, this will only ever give a blank see_stories.html
+    stories_search = [[()]] 
+    return render_template("see_stories.html", storieslist=stories_search)
 
 @app.route("/edit_story", methods=['GET', 'POST'])
 def edit_story():

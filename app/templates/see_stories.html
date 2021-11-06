@@ -19,6 +19,17 @@
     <form action="/dashboard">
       <input type="submit" value="Return to Dashboard">
     </form>
+
+    <br>
+    <br>
+    
+    <!-- the search bar should bring you to see_stories.html essentially  -->
+    <!-- but the story_list (of titles) should be those that match a search -->
+    <form action="/search_see_stories" method="POST">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit">Submit</button>
+    </form>
+
     {% for story_info in storiesList %}
       {% if (story_info != []) %}
         <h2> Title:  {{story_info[0][0]}} </h2> <!-- title !-->

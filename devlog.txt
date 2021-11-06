@@ -275,6 +275,11 @@ In see_stories() in __init__.py:
     However, this might include stories user1 contributed to, if user1 contributed to a story of user2 or user3.
 - BUG FIX: Thus, we need to get the user2 and user3 stories then remove user1 stories.
   (It has been done, with the help of flatten_and_clean())
-  
-
+In __init__.py (search_see_stories()) and see_stories.html
+- created the beginnings of a search button
+Next steps
+1. Edit/amend design doc with changes
+2. Finish the search button*
+3. Add more buttons for navigation*
+*optional
     
