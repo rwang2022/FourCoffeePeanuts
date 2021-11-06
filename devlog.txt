@@ -282,4 +282,21 @@ Next steps
 2. Finish the search button*
 3. Add more buttons for navigation*
 *optional
-    
+
+ryanW -- 2021-11-06 16:02
+In login_create.html
+  - added a buton to go back to home page (main_page.html)
+In __init__.py
+  - for submit_create_account(), I made it so that after creating account, it logs you in right away
+In edit_story.html
+  - created a button to back to see_stories
+Next steps
+1. Edit/amend design doc with changes
+2. Finish the search button*
+3. Use CSS/whatever to make it look nice*
+*optional
+4. issue: "devlog needs work EOM" 
+  look to hall of fame:
+  https://github.com/AAWorks/BaaTimeBlogs/blob/main/devlog.txt
+  https://github.com/Clue88/circlestories/blob/41b7f4fe2dae49a4eac994af7f478e850b5d5e13/devlog.txt
+  https://github.com/josephinelee1234/P00/blob/main/devlog.txt
