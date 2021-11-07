@@ -313,3 +313,11 @@ Next steps
 1. Edit/amend design doc with changes
 2. Refactor code in areas that are convoluted
 3. Use CSS to spice up site (optional)
+
+ryanW -- 2021-11-06 23:41
+- discovered slight flaw with search_see_stories(): search can return stories that user contributed to
+Next steps
+1. Edit/amend design doc with changes
+2. Refactor code in areas that are convoluted
+3. Use CSS to spice up site (optional)
+4. Fix search (optional)
