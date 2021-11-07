@@ -7,46 +7,22 @@
 
 
 <html>
-  <!-- https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro -->
-  <style>
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-
-    tr:nth-child(even) {
-      background-color: #dddddd;
-    }
-    
-    input {
-      float: right;
-    }
-  </style>
-
   <head>
-    <title>
-      Dashboard
-    </title>
-    <h1> Dashboard </h1>
+    <link rel="stylesheet" href="static/css/my_style.css">
+    <title>Dashboard</title>
+    <h1>Dashboard</h1>
   </head>
 
   <body>
-    <form action="/create_story">
+    <form action="/create_story" style="float:right">
       <input type="submit" value="Create Story">
     </form>
 
-    <form action="/see_stories">
+    <form action="/see_stories" style="float:right">
       <input type="submit" value="See Stories">
     </form>
 
-    <form action="/logout" method="POST">
+    <form action="/logout" method="POST" style="float:right">
       <input type="submit" value="Log Out">
     </form>
 
@@ -80,7 +56,7 @@
       <h2>You have contributed {{num_stories}} stories</h2>
     {% endif %}
 
-    <table style="width:100%">
+    <table>
       <tr>
         <th>Title</th>
         <th>Latest Update</th>
