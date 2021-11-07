@@ -61,7 +61,7 @@ def submit_create_account():
             # print(f"\n\nuserFromDB: {userFromDB}\n\n")
             if (len(userFromDB) > 0): #check if username is already in the users database
                 return render_template("login_create.html", create=True, error="That username has already been taken")
-                # if it is, return this username has been taken error                
+                # if it is, return this username has been taken error
             elif password != same_password: # if it is not, check if the passwords match
                 return render_template("login_create.html", create=True, error="The passwords do not match")
                 # if they do not, return passwords do not match error
@@ -72,7 +72,7 @@ def submit_create_account():
                 addAccount = f"INSERT INTO users VALUES(?,?,?)" # if they do, add the entry to the database
                 c.execute(addAccount,info) #add user data to table
                 db.commit() #save changes
-                
+
                 # log them in right after creating account
                 # finally!!! (so annoying before)
                 c.execute("SELECT * FROM users WHERE username = (?)", (username,))
@@ -82,7 +82,7 @@ def submit_create_account():
                         logged_in_user = username
                         session[username] = password #add session
                         return redirect("/dashboard") #if everything works, log the user in successfully
-                
+
     except:
         return render_template("login_create.html", create=True, error="Error!") # overall error catch
 
@@ -253,7 +253,7 @@ def full_story():
 
 def flat_clean(c_fetch_all_list):
     # c_fetch_all_list is a list of tuples, each tuple representing the stories of each user
-    # the first element of each tuple is a comma-separated str of titles  
+    # the first element of each tuple is a comma-separated str of titles
     ''' returns a "flattened" set with no empty strings '''
     title_str = ""
     for line_tuple in c_fetch_all_list:
@@ -270,8 +270,8 @@ def see_stories():
     if not session.get(logged_in_user):
         return render_template('main_page.html')
 
-    # collects stories that other users contributed to 
-    # IMPORTANT: logged_in_user may have contributed to these stories 
+    # collects stories that other users contributed to
+    # IMPORTANT: logged_in_user may have contributed to these stories
     # we must remove duplicates, and those stories
     c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
     other_user_stories = c.fetchall()
@@ -301,9 +301,15 @@ def see_stories():
 @app.route("/search_see_stories", methods=['GET','POST'])
 def search_see_stories():
     # put stories that match search criteria here
-    # right now, this will only ever give a blank see_stories.html
-    stories_search = [[()]] 
-    return render_template("see_stories.html", storieslist=stories_search)
+    if request.method == "POST":
+        searched_stories = []
+        searchWord = request.form.get("search") # get searchWord
+        c.execute("SELECT * FROM stories WHERE name LIKE '%" + searchWord + "%'")
+        # find stories that contatin searchword in the name
+        searched_stories.append(c.fetchall())
+        return render_template("see_stories.html", storiesList=searched_stories)
+    else:
+        return redirect("/dashboard")
 
 @app.route("/edit_story", methods=['GET', 'POST'])
 def edit_story():

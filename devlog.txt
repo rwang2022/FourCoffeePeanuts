@@ -1,3 +1,7 @@
+Team fourCoffeePeanuts: Ryan Wang (PM), Eliza Knapp, Yaying Liang Li, Jesse Xie
+SoftDev
+P00 -- Move Slowly and Fix Things
+
 jesseX -- 2021-10-28 22:06
 In design.pdf:
 - Made the program components section more specific
@@ -238,7 +242,7 @@ In dashboard.html
   - Moved the 3 buttons to top right
   - Made sure "See Stories Button" works
 In see_stories() in __init__.py
-  - did some logic with some lists 
+  - did some logic with some lists
   - it returns a list of stories that the user did NOT contribute to, to see_stories.html
     so that it show the stories
 Next steps
@@ -251,14 +255,14 @@ elizaK -- 2021-11-05 01:59
 In full_story.html, see_stories.html, create_story.html, edit_story.html
 - added a return to dashboard button (note: is this the home button? I think so)
 In edit_story.html
-- discovered that to make it a post method, you have to do 
+- discovered that to make it a post method, you have to do
 method = post bc otherwise it might not work
 - added an error if for some reason submission doesn't work
 In __init__.py
 - created the /submit_edit_story route which takes the post
 from edit_story.html and updates the database with the correct
 info and then takes you back to the dashboard
-- if that doesn't work for some reason, it will return an error 
+- if that doesn't work for some reason, it will return an error
 - added the session stuff to the new functions
 - added the title that was updated to the list of stories
 a specific user has edited so it shows up on the edited stories
@@ -271,7 +275,7 @@ ryanW -- 2021-11-06 00:00
 In see_stories() in __init__.py:
 - BUG: c.execute("SELECT stories FROM users WHERE username != (?)", (logged_in_user,))
     Say logged_in_user is user1, and there is a user2 and user3.
-    This code selects stories that user2 and user3 contributed to. 
+    This code selects stories that user2 and user3 contributed to.
     However, this might include stories user1 contributed to, if user1 contributed to a story of user2 or user3.
 - BUG FIX: Thus, we need to get the user2 and user3 stories then remove user1 stories.
   (It has been done, with the help of flatten_and_clean())
@@ -295,8 +299,17 @@ Next steps
 2. Finish the search button*
 3. Use CSS/whatever to make it look nice*
 *optional
-4. issue: "devlog needs work EOM" 
+4. issue: "devlog needs work EOM"
   look to hall of fame:
   https://github.com/AAWorks/BaaTimeBlogs/blob/main/devlog.txt
   https://github.com/Clue88/circlestories/blob/41b7f4fe2dae49a4eac994af7f478e850b5d5e13/devlog.txt
   https://github.com/josephinelee1234/P00/blob/main/devlog.txt
+
+jesseX -- 2021-11-06 21:14
+- added heading to devlog
+In __init__.py
+- Added search functionality
+Next steps
+1. Edit/amend design doc with changes
+2. Refactor code in areas that are convoluted
+3. Use CSS to spice up site (optional)
