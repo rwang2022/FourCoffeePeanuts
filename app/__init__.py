@@ -264,12 +264,7 @@ def flat_clean(c_fetch_all_list):
     return set(flat_list)
 
 
-@app.route("/see_stories")
-def see_stories():
-    global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
-
+def return_untouched():
     # collects stories that other users contributed to
     # IMPORTANT: logged_in_user may have contributed to these stories
     # we must remove duplicates, and those stories
@@ -287,15 +282,24 @@ def see_stories():
     flat_logged_titles = flat_clean(logged_user_stories)
     untouched_titles = list(flat_other_titles - flat_logged_titles)
 
-    storiesList = []
+    all_untouched = []
     for title in untouched_titles:
         c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         row = c.fetchall()
-        storiesList.append(row)
+        all_untouched.append(row)
 
-    #display all stories in the stories database that the user hasn't added to yet
+    # display all stories in the stories database that the user hasn't added to yet
     # return redirect("/dashboard")
-    print(storiesList)
+    # print(storiesList)
+    return all_untouched
+
+@app.route("/see_stories")
+def see_stories():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
+
+    storiesList = return_untouched()
     return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/search_see_stories", methods=['GET','POST'])
