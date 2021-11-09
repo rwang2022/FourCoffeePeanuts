@@ -212,7 +212,12 @@ def submit_create_story():
         titleRepeats = c.fetchall()
 
         if (len(titleRepeats) > 0):
-            return render_template("create_story.html", error="The name of the story is already taken", story=story)
+            return render_template("create_story.html", error=f"The name '{title}' is already taken", story=story)
+        
+        # we cannot allow the user to have a "," because that is the delimiter we use
+        # of course, we can use a more obscure delimiter but we do not like our users
+        if "," in title:
+            return render_template("create_story.html", error="You may not have \",\" in your title", story=story)
 
         # adds the story info (title, story text) to the stories table in walnutLatte.db
         data_tuple = (title, latest_update, story)
