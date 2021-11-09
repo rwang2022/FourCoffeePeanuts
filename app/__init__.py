@@ -3,14 +3,13 @@
 # P00 -- Move Slowly and Fix Things
 
 # setup
-from os import closerange
+from os import urandom
 from flask import Flask, render_template, request, redirect, session # flask imports
 import sqlite3   #enable control of an sqlite database
 
 app = Flask(__name__) #creates flask object
 
-# TODO: configure session stuff
-app.secret_key = "random" # TODO: perhaps change to urandom(32)
+app.secret_key = urandom(32)
 
 DB_FILE="walnutLatte.db"
 

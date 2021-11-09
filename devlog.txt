@@ -322,7 +322,7 @@ Next steps
 3. Use CSS to spice up site (optional)
 4. Fix search (optional)
 
-yayingLL -- 2021-11-08-09:20
+yayingLL -- 2021-11-08 09:20
 - added search function in see_stories so that the user only sees stories that they have not contributed to
 Next steps
 1. Edit/amend design doc with changes
@@ -338,3 +338,12 @@ Next steps
 2. Refactor code in areas that are convoluted
 3. Fix devlog (what's wrong with it?)
 4. Use CSS to spice up site (optional)
+
+jesseX, yayingLL, elizaK, ryanW -- 2021-11-09 09:23
+- added a parameter that saves the story if the title is already taken
+so you don't lose all your progress
+- added urandom to the secret key
+Next steps:
+1. Edit/amend design doc with changes
+2. Refactor code in areas that are convoluted
+3. Fix devlog (what's wrong with it?)
