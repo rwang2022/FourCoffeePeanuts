@@ -30,14 +30,15 @@
       <button type="submit">Submit</button>
     </form>
 
+    <!-- storiesList is a list of tuples, make sure to have this format -->
     {% for story_info in storiesList %}
-      {% if (story_info != []) %}
-        <h2> Title:  {{story_info[0][0]}} </h2> <!-- title !-->
-        <p> Preview: {{story_info[0][1]}} </p> <!-- preview !-->
+      {% if (story_info != ()) %}
+        <h2> Title:  {{story_info[0]}} </h2> <!-- title !-->
+        <p> Preview: {{story_info[1]}} </p> <!-- preview !-->
         <!-- button to view story so that user can read latest preview and add edits in a box !-->
         <form action="/edit_story" method="POST">
-          <input type="hidden" name="story_title" value="{{story_info[0][0]}}">
-          <input type="hidden" name="preview"     value="{{story_info[0][1]}}">
+          <input type="hidden" name="story_title" value="{{story_info[0]}}">
+          <input type="hidden" name="preview"     value="{{story_info[1]}}">
           <input type="submit" value="Edit Story">
         </form>
         <br> </br> <!-- new line separating each story !-->

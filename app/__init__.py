@@ -261,36 +261,21 @@ def flat_clean(c_fetch_all_list):
     flat_list = title_str.split(",")
     # remove empty strings
     flat_list = [title for title in flat_list if title]
-    return set(flat_list)
+    # remove duplicates
+    return list(set(flat_list))
 
-#get all the stories that the user hasn't contributed to
-def filtered_story():
+
+def untouched():
+    ''' returns a list of tuples of stories that the user has not added/contributed '''
     c.execute("SELECT stories FROM users WHERE username == (?)", (logged_in_user,))
-    logged_user_stories = c.fetchall()
-    flat_logged_titles = flat_clean(logged_user_stories) #list of all stories that user has contributed to
+    flat_logged_titles = flat_clean(c.fetchall()) #list of all stories that user has contributed to
 
-    all_untouched = [] #list that keeps track of all stories user has not contributed to
-    for title in flat_logged_titles:
-        c.execute("SELECT * FROM stories WHERE name != (?)", (title,)) #list of tuple of story user has not contributed to
-        row = c.fetchall()
-        all_untouched.append(row)
-    print(all_untouched)
-    return all_untouched
+    logged_title_str = "(" + ", ".join("'" + str(title) + "'" for title in flat_logged_titles) + ")"
+    # this will look something like ('coffee', 'peanut') which is the format necessary for logged_title_str
+    execute_str = f"SELECT * FROM stories WHERE name NOT IN {logged_title_str}"
 
-    '''
-    def filtered_story():
-        c.execute("SELECT stories FROM users WHERE username == (?)", (logged_in_user,))
-        logged_user_stories = c.fetchall()
-        flat_logged_titles = flat_clean(logged_user_stories) #list of all stories that user has contributed to
+    return c.execute(execute_str).fetchall() #list of tuples (name, latest, full) of all stories that were not touched by user 
 
-        all_untouched = [] #list that keeps track of all stories user has not contributed to
-        c.execute("SELECT * FROM stories WHERE name != (?)", (title,))
-        dasdas = c.fetchall()
-        for title in dasdas:
-            #list of tuple of story user has not contributed to
-            all_untouched.append(title)
-        return all_untouched
-        '''
 
 @app.route("/see_stories")
 def see_stories():
@@ -298,20 +283,24 @@ def see_stories():
     if not session.get(logged_in_user):
         return render_template('main_page.html')
 
-    storiesList = filtered_story()
+    storiesList = untouched() 
     return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/search_see_stories", methods=['GET','POST'])
 def search_see_stories():
     # put stories that match search criteria here
     if request.method == "POST":
-        searched_stories = []
+        # search_stories must only include untouched stories
+        untouched_titles = flat_clean(untouched())
+        untouched_title_str = "(" + ", ".join("'" + str(title) + "'" for title in untouched_titles) + ")"
+
+        # search_stories also needs to follow the search criterion
         searchWord = request.form.get("search") # get searchWord
 
-        for title in filtered_story():
-            c.execute("SELECT * FROM stories WHERE name LIKE '%" + searchWord + "%' AND name == (?)", (title,)) #name of story contains the searchWord
-            # find stories that contatin searchword in the name
-            searched_stories.append(c.fetchall())
+        execute_str = f"SELECT * FROM stories WHERE name LIKE '%{searchWord}%' AND name IN {untouched_title_str}"
+        searched_stories = c.execute(execute_str).fetchall()
+        print(searched_stories)
+
         return render_template("see_stories.html", storiesList=searched_stories)
     else:
         return redirect("/dashboard")
