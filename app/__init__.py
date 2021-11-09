@@ -210,10 +210,10 @@ def submit_create_story():
 
         # check if the title is taken
         c.execute("SELECT * FROM stories WHERE lower(name) = (?)", (title.lower(),)) # case insensitive
-
         titleRepeats = c.fetchall()
+
         if (len(titleRepeats) > 0):
-            return render_template("create_story.html", error="The name of the story is already taken")
+            return render_template("create_story.html", error="The name of the story is already taken", story=story)
 
         # adds the story info (title, story text) to the stories table in walnutLatte.db
         data_tuple = (title, latest_update, story)
