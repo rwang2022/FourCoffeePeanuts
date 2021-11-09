@@ -321,3 +321,12 @@ Next steps
 2. Refactor code in areas that are convoluted
 3. Use CSS to spice up site (optional)
 4. Fix search (optional)
+
+ryanW -- 2021-11-08 21:38 
+- finished work in class with code logic with flat_clean() and untouched()
+- made sure the /see_stories and /search_see_stories work as intended
+Next steps
+1. Edit/amend design doc with changes
+2. Refactor code in areas that are convoluted
+3. Fix devlog (what's wrong with it?)
+4. Use CSS to spice up site (optional)
