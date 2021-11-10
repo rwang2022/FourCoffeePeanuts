@@ -292,6 +292,9 @@ def see_stories():
 
 @app.route("/search_see_stories", methods=['GET','POST'])
 def search_see_stories():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
     # put stories that match search criteria here
     if request.method == "POST":
         # search_stories must only include untouched stories
