@@ -375,16 +375,11 @@ def change_password():
 
 @app.route("/submit_change_password", methods=['GET', 'POST'])
 def submit_change_password():
+    global logged_in_user
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password1")
         same_password = request.form.get("password2")
-        # print("username: " + username)
-        # print("pass1: " + password)
-        # print("pass2: " + same_password)
-
-            
-        #fetch user table data from db file
         if username == '':
             return render_template("change_password.html", error="Your username cannot be blank")
 
@@ -403,7 +398,7 @@ def submit_change_password():
             # print("updating db")
             c.execute("UPDATE users SET password = (?) WHERE username = (?)", (password, username)) #add user data to table
             db.commit() #save changes
-            return render_template("main_page.html")
+            return redirect("/login") #takes you back to login
     else:
         return render_template("change_password.html", error="Method type incorrect?")
     

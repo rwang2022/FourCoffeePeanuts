@@ -357,3 +357,11 @@ Next steps:
 jesseX, yayingLL, elizaK, ryanW -- 2021-11-10 09:04
 - updated full_story.html to display newline characters
 - added sessions to search stories
+
+elizaK -- 2021-11-10 12:00
+- created a change password button that appears in the login
+screen (init.py- change_password and submit_change_password)
+- button in login_create.html takes you to change_password.html
+- when you change password, you go back to the login page
+Question for team:
+- Should you only be asked to change password if you get it wrong?

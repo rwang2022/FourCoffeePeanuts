@@ -21,6 +21,10 @@
   </head>
 
   <body>
+    <form action="/">
+      <input type="submit" value="Return to Home Page">
+    </form>
+
     {% if (create) %}
 
     <h1> Create Account </h1>
@@ -40,6 +44,7 @@
       <input type="submit" name="sub1">
     </form>
     <br>
+    <br>
 
     <form action="/change_password" method="POST">
       <input type="submit" value="Change Password">
@@ -47,10 +52,6 @@
     <br>
 
     {% endif %}
-
-    <form action="/">
-      <input type="submit" value="Return to Home Page">
-    </form>
     
   </body>
 
