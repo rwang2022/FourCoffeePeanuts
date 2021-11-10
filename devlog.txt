@@ -347,3 +347,9 @@ Next steps:
 1. Edit/amend design doc with changes
 2. Refactor code in areas that are convoluted
 3. Use CSS to spice up site (optional)
+
+jesseX, yayingLL -- 2021-11-09 20:34
+- updated HTML files and their functions in design doc (main_page, login_create, dashboard, full_story, see_stories, create_story, edit_story)
+Next steps:
+1. Refactor code in areas that are convoluted
+2. Use CSS to spice up site (optional)
