@@ -213,7 +213,7 @@ def submit_create_story():
 
         if (len(titleRepeats) > 0):
             return render_template("create_story.html", error=f"The name '{title}' is already taken", story=story)
-        
+
         # we cannot allow the user to have a "," because that is the delimiter we use
         # of course, we can use a more obscure delimiter but we do not like our users
         if "," in title:
@@ -278,7 +278,7 @@ def untouched():
     # this will look something like ('coffee', 'peanut') which is the format necessary for logged_title_str
     execute_str = f"SELECT * FROM stories WHERE name NOT IN {logged_title_str}"
 
-    return c.execute(execute_str).fetchall() #list of tuples (name, latest, full) of all stories that were not touched by user 
+    return c.execute(execute_str).fetchall() #list of tuples (name, latest, full) of all stories that were not touched by user
 
 
 @app.route("/see_stories")
@@ -287,7 +287,7 @@ def see_stories():
     if not session.get(logged_in_user):
         return render_template('main_page.html')
 
-    storiesList = untouched() 
+    storiesList = untouched()
     return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/search_see_stories", methods=['GET','POST'])
@@ -341,6 +341,7 @@ def submit_edit_story():
     if request.method == "POST":
         title = request.form.get("story_title")
         update = request.form.get("story")
+        print(update)
 
         c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         story_row = c.fetchall() #gets the row with the title

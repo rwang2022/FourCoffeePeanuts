@@ -330,7 +330,7 @@ Next steps
 3. Use CSS to spice up site (optional)
 4. Fix search (optional)
 
-ryanW -- 2021-11-08 21:38 
+ryanW -- 2021-11-08 21:38
 - finished work in class with code logic with flat_clean() and untouched()
 - made sure the /see_stories and /search_see_stories work as intended
 Next steps
@@ -342,7 +342,7 @@ Next steps
 jesseX, yayingLL, elizaK, ryanW -- 2021-11-09 09:23
 - added a parameter that saves the story if the title is already taken so you don't lose all your progress
 - added urandom to the secret key
-- prevented the user from having "," in their title 
+- prevented the user from having "," in their title
 Next steps:
 1. Edit/amend design doc with changes
 2. Refactor code in areas that are convoluted
@@ -353,3 +353,6 @@ jesseX, yayingLL -- 2021-11-09 20:34
 Next steps:
 1. Refactor code in areas that are convoluted
 2. Use CSS to spice up site (optional)
+
+jesseX, yayingLL, elizaK, ryanW -- 2021-11-10 09:04
+- updated full_story.html to display newline characters
