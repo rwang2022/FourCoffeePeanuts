@@ -375,30 +375,38 @@ def change_password():
 
 @app.route("/submit_change_password", methods=['GET', 'POST'])
 def submit_change_password():
-    return render_template("main_page.html")
     if request.method == "POST":
-            username = request.form.get("username")
-            password = request.form.get("password1")
-            same_password = request.form.get("password2")
+        username = request.form.get("username")
+        password = request.form.get("password1")
+        same_password = request.form.get("password2")
+        # print("username: " + username)
+        # print("pass1: " + password)
+        # print("pass2: " + same_password)
+
             
-            #fetch user table data from db file
-            if username == '':
-                return render_template("change_password.html", error="Your username cannot be blank")
+        #fetch user table data from db file
+        if username == '':
+            return render_template("change_password.html", error="Your username cannot be blank")
 
-            c.execute("SELECT * FROM users WHERE username = (?)", (username,))
-            userFromDB = c.fetchall()
+        c.execute("SELECT * FROM users WHERE username = (?)", (username,))
+        userFromDB = c.fetchall()
 
-            if (len(userFromDB) == 0): #check if username is there in the users database
-                return render_template("change_password.html", error="Please enter a username that exists")
-                # if it is, return this username has been taken error
-            elif password != same_password: # if it is not, check if the passwords match
-                return render_template("change_password.html", error="The passwords do not match")
+        if (len(userFromDB) == 0): #check if username is there in the users database
+            return render_template("change_password.html", error="Please enter a username that exists")
+            # if it is, return this username has been taken error
+        elif password != same_password: # if it is not, check if the passwords match
+            return render_template("change_password.html", error="The passwords do not match")
                 # if they do not, return passwords do not match error
-            elif password == '':
-                return render_template("change_password.html", error="Your password cannot be blank")
-            else:
-                c.execute("UPDATE users SET password = (?) WHERE username = (?)", (username, password)) #add user data to table
-                db.commit() #save changes
+        elif password == '':
+            return render_template("change_password.html", error="Your password cannot be blank")
+        else:
+            # print("updating db")
+            c.execute("UPDATE users SET password = (?) WHERE username = (?)", (password, username)) #add user data to table
+            db.commit() #save changes
+            return render_template("main_page.html")
+    else:
+        return render_template("change_password.html", error="Method type incorrect?")
+    
     
 
 
