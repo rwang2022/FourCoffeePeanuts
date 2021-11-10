@@ -369,6 +369,13 @@ def submit_edit_story():
 
     return redirect("/edit_story", error="something went wrong")
 
+@app.route("/change_password", methods=['GET', 'POST'])
+def change_password():
+    global logged_in_user
+    if not session.get(logged_in_user):
+        return render_template('main_page.html')
+    return render_template("change_password.html")
+
 
 if __name__ == "__main__":
     app.debug = True
