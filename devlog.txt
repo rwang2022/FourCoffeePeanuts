@@ -365,3 +365,8 @@ screen (init.py- change_password and submit_change_password)
 - when you change password, you go back to the login page
 Question for team:
 - Should you only be asked to change password if you get it wrong?
+
+jesseX -- 2021-11-10 22:50
+- put session checking into method to take up less lines
+- added a space (' ') to the end of such update so that characters will not bunch together between updates
+- added favicons
