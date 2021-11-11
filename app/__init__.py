@@ -128,12 +128,15 @@ def logout():
         logged_in_user = ""
     return render_template('main_page.html')
 
-@app.route("/dashboard")
-def dashboard():
+def sessionCheck():
+    global logged_in_user
     if not session.get(logged_in_user):
         # if session doesn't have the correct login info, i.e. you are not signed in
         return render_template('main_page.html')
 
+@app.route("/dashboard")
+def dashboard():
+    sessionCheck()
     c.execute("SELECT stories FROM users WHERE username = (?)", (logged_in_user,))
     # this is only to create userStorieslist
     userStories = c.fetchall()
@@ -186,17 +189,13 @@ def dashboard():
 
 @app.route("/create_story")
 def create_story():
-    if not session.get(logged_in_user):
-        # if session doesn't have the correct login info, i.e. you are not signed in
-        return render_template('main_page.html')
+    sessionCheck()
     return render_template("create_story.html")
 
 @app.route("/submit_create_story", methods=['GET', 'POST'])
 def submit_create_story():
     global logged_in_user
-    if not session.get(logged_in_user):
-        # if session doesn't have the correct login info, i.e. you are not signed in
-        return render_template('main_page.html')
+    sessionCheck()
     # add the stuff to database
     if request.method == "POST":
         # current problem: it's not a post method but i don't know why
@@ -205,7 +204,7 @@ def submit_create_story():
         # to insert into the stories stories in the DB
         title = request.form.get("title").strip() #remove whitespace at beginning and end
         story = request.form.get("story")
-        latest_update = request.form.get("story")
+        latest_update = request.form.get("story") + " "
 
         # check if the title is taken
         c.execute("SELECT * FROM stories WHERE lower(name) = (?)", (title.lower(),)) # case insensitive
@@ -243,9 +242,7 @@ def submit_create_story():
 
 @app.route("/full_story", methods=['GET', 'POST'])
 def full_story():
-    global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
+    sessionCheck()
     if request.method == "POST":
         # print("here")
         story_text = request.form.get("full_story")
@@ -283,18 +280,13 @@ def untouched():
 
 @app.route("/see_stories")
 def see_stories():
-    global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
-
+    sessionCheck()
     storiesList = untouched()
     return render_template("see_stories.html", storiesList=storiesList)
 
 @app.route("/search_see_stories", methods=['GET','POST'])
 def search_see_stories():
-    global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
+    sessionCheck()
     # put stories that match search criteria here
     if request.method == "POST":
         # search_stories must only include untouched stories
@@ -306,7 +298,7 @@ def search_see_stories():
 
         execute_str = f"SELECT * FROM stories WHERE name LIKE '%{searchWord}%' AND name IN {untouched_title_str}"
         searched_stories = c.execute(execute_str).fetchall()
-        print(searched_stories)
+        # print(searched_stories)
 
         return render_template("see_stories.html", storiesList=searched_stories)
     else:
@@ -315,8 +307,7 @@ def search_see_stories():
 @app.route("/edit_story", methods=['GET', 'POST'])
 def edit_story():
     global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
+    sessionCheck()
     if request.method == "POST":
         # print("here")
         story_title = request.form.get("story_title")
@@ -339,12 +330,10 @@ def edit_story():
 @app.route("/submit_edit_story", methods=['GET', 'POST'])
 def submit_edit_story():
     global logged_in_user
-    if not session.get(logged_in_user):
-        return render_template('main_page.html')
+    sessionCheck()
     if request.method == "POST":
         title = request.form.get("story_title")
-        update = request.form.get("story")
-        print(update)
+        update = request.form.get("story") + " "
 
         c.execute("SELECT * FROM stories WHERE name = (?)", (title,))
         story_row = c.fetchall() #gets the row with the title
@@ -401,8 +390,6 @@ def submit_change_password():
             return redirect("/login") #takes you back to login
     else:
         return render_template("change_password.html", error="Method type incorrect?")
-    
-    
 
 
 if __name__ == "__main__":
