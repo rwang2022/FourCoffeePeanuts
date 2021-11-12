@@ -374,10 +374,10 @@ def submit_change_password():
         same_password = request.form.get("password2")
 
         if password != same_password: # if it is not, check if the passwords match
-            return render_template("change_password.html", error="The passwords do not match")
+            return render_template("change_password.html", user=logged_in_user, error="The passwords do not match")
                 # if they do not, return passwords do not match error
         elif password == '':
-            return render_template("change_password.html", error="Your password cannot be blank")
+            return render_template("change_password.html", user=logged_in_user, error="Your password cannot be blank")
         else:
             # print("updating db")
             c.execute("UPDATE users SET password = (?) WHERE username = (?)", (password, username)) #add user data to table
@@ -388,7 +388,7 @@ def submit_change_password():
             db.commit() #save changes
             return redirect("/dashboard") #takes you back to dashboard
     else:
-        return render_template("change_password.html", error="Method type incorrect?")
+        return render_template("change_password.html", user=logged_in_user, error="Method type incorrect?")
 
 
 if __name__ == "__main__":
