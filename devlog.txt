@@ -370,3 +370,6 @@ jesseX -- 2021-11-10 22:50
 - put session checking into method to take up less lines
 - added a space (' ') to the end of such update so that characters will not bunch together between updates
 - added favicons
+
+elizaK -- 2021-11-11 7:08
+- made the change password button only if you are already logged in

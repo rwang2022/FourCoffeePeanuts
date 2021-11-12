@@ -360,25 +360,20 @@ def submit_edit_story():
 
 @app.route("/change_password", methods=['GET', 'POST'])
 def change_password():
-    return render_template("change_password.html")
+    global logged_in_user
+    sessionCheck()
+    return render_template("change_password.html", user=logged_in_user)
 
 @app.route("/submit_change_password", methods=['GET', 'POST'])
 def submit_change_password():
     global logged_in_user
+    sessionCheck()
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password1")
         same_password = request.form.get("password2")
-        if username == '':
-            return render_template("change_password.html", error="Your username cannot be blank")
 
-        c.execute("SELECT * FROM users WHERE username = (?)", (username,))
-        userFromDB = c.fetchall()
-
-        if (len(userFromDB) == 0): #check if username is there in the users database
-            return render_template("change_password.html", error="Please enter a username that exists")
-            # if it is, return this username has been taken error
-        elif password != same_password: # if it is not, check if the passwords match
+        if password != same_password: # if it is not, check if the passwords match
             return render_template("change_password.html", error="The passwords do not match")
                 # if they do not, return passwords do not match error
         elif password == '':
@@ -386,8 +381,12 @@ def submit_change_password():
         else:
             # print("updating db")
             c.execute("UPDATE users SET password = (?) WHERE username = (?)", (password, username)) #add user data to table
+            if logged_in_user in session:
+                session.pop(logged_in_user)
+            logged_in_user = username
+            session[username] = password #update session value with new password
             db.commit() #save changes
-            return redirect("/login") #takes you back to login
+            return redirect("/dashboard") #takes you back to dashboard
     else:
         return render_template("change_password.html", error="Method type incorrect?")
 
